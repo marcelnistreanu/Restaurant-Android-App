@@ -1,5 +1,6 @@
 package com.example.springbootbackend.user;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
@@ -20,6 +21,7 @@ public class User {
 
     String email;
 
+    @JsonFormat(pattern = "yyyy-MM-dd")
     LocalDate createdAt;
 
 
@@ -28,13 +30,13 @@ public class User {
 
     }
 
-    public User(Long id, String loginCode, String password, String fullName, String email, LocalDate createdAt) {
+    public User(Long id, String loginCode, String password, String fullName, String email) {
         this.id = id;
         this.loginCode = loginCode;
         this.password = password;
         this.fullName = fullName;
         this.email = email;
-        this.createdAt = createdAt;
+        this.createdAt = LocalDate.now();
     }
 
     public Long getId() {
@@ -78,7 +80,7 @@ public class User {
     }
 
     public LocalDate getCreatedAt() {
-        return createdAt;
+        return this.createdAt;
     }
 
     public void setCreatedAt(LocalDate createdAt) {
@@ -93,7 +95,7 @@ public class User {
                 ", password='" + password + '\'' +
                 ", fullName='" + fullName + '\'' +
                 ", email='" + email + '\'' +
-                ", createdAt=" + createdAt +
+                ", createdAt=" + createdAt.toString() +
                 '}';
     }
 }
