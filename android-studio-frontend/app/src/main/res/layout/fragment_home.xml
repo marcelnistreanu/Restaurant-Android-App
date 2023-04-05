@@ -1,22 +1,122 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/frameLayout2"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".HomeFragment"
-    >
+    tools:context=".HomeFragment">
 
 
     <TextView
-        android:id="@+id/textView3"
+        android:id="@+id/textView2"
         android:layout_width="match_parent"
-        android:layout_height="38dp"
-        android:text="TextView" />
+        android:layout_height="70dp"
+        android:background="@drawable/navbar_box"
+        android:gravity="center"
+        android:text="Dashboard"
+        android:textColor="@color/white"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
-        android:id="@+id/button"
+    <TextView
+        android:id="@+id/btnTables"
+        android:layout_width="160dp"
+        android:layout_height="110dp"
+        android:layout_marginTop="60dp"
+        android:background="@drawable/btn_box"
+        android:drawableTop="@drawable/tables_icon"
+        android:elevation="10dp"
+        android:gravity="center"
+        android:padding="10dp"
+        android:text="TABLES"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toStartOf="@+id/guideline"
+        app:layout_constraintHorizontal_bias="0.388"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnSchedule" />
+
+    <TextView
+        android:id="@+id/btnTips"
+        android:layout_width="160dp"
+        android:layout_height="110dp"
+        android:layout_marginTop="60dp"
+        android:background="@drawable/btn_box"
+        android:drawableTop="@drawable/tips_icon"
+        android:elevation="10dp"
+        android:gravity="center"
+        android:padding="10dp"
+        android:text="TIPS"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toStartOf="@+id/guideline"
+        app:layout_constraintHorizontal_bias="0.444"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnTables" />
+
+    <TextView
+        android:id="@+id/btnOrders"
+        android:layout_width="160dp"
+        android:layout_height="110dp"
+        android:layout_marginTop="60dp"
+        android:background="@drawable/btn_box"
+        android:drawableTop="@drawable/orders_icon"
+        android:elevation="10dp"
+        android:gravity="center"
+        android:padding="10dp"
+        android:text="ORDERS"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.567"
+        app:layout_constraintStart_toStartOf="@+id/guideline"
+        app:layout_constraintTop_toBottomOf="@+id/btnMenuOrder" />
+
+    <TextView
+        android:id="@+id/btnSchedule"
+        android:layout_width="160dp"
+        android:layout_height="110dp"
+        android:layout_marginTop="56dp"
+        android:background="@drawable/btn_box"
+        android:drawableTop="@drawable/clock_icon"
+        android:elevation="10dp"
+        android:gravity="center"
+        android:padding="10dp"
+        android:text="SCHEDULE"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toStartOf="@+id/guideline"
+        app:layout_constraintHorizontal_bias="0.444"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView2" />
+
+    <TextView
+        android:id="@+id/btnMenuOrder"
+        android:layout_width="160dp"
+        android:layout_height="110dp"
+        android:layout_marginTop="56dp"
+        android:background="@drawable/btn_box"
+        android:elevation="10dp"
+        android:gravity="center"
+        android:padding="10dp"
+        android:drawableTop="@drawable/menu_icon"
+        android:text="MENU"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.567"
+        app:layout_constraintStart_toStartOf="@+id/guideline"
+        app:layout_constraintTop_toBottomOf="@+id/textView2" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Button" />
-</FrameLayout>
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="196dp" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

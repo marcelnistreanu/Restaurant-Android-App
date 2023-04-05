@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -22,7 +23,6 @@ public class MainActivity extends AppCompatActivity {
 
     EditText editId, editPassword;
     Button btnLogin;
-
     UserService userService = RetrofitService.getUserService();
 
 
@@ -48,13 +48,20 @@ public class MainActivity extends AppCompatActivity {
                 call.enqueue(new Callback<Void>() {
                     @Override
                     public void onResponse(Call<Void> call, Response<Void> response) {
-                        if (response.isSuccessful()) {
-                            Toast.makeText(MainActivity.this, "Login successful", Toast.LENGTH_SHORT).show();
-                            Intent intent = new Intent(getApplicationContext(), Dashboard.class);
-                            startActivity(intent);
+                        if (TextUtils.isEmpty(loginCode)) {
+                            Toast.makeText(MainActivity.this, "Enter Login code", Toast.LENGTH_SHORT).show();
+                        } else if (TextUtils.isEmpty(password)) {
+                            Toast.makeText(MainActivity.this, "Enter Password", Toast.LENGTH_SHORT).show();
                         } else {
-                            Toast.makeText(MainActivity.this, "Login failed", Toast.LENGTH_SHORT).show();
+                            if (response.isSuccessful()) {
+                                Toast.makeText(MainActivity.this, "Login successful", Toast.LENGTH_SHORT).show();
+                                Intent intent = new Intent(getApplicationContext(), Dashboard.class);
+                                startActivity(intent);
+                            } else {
+                                Toast.makeText(MainActivity.this, "Login failed", Toast.LENGTH_SHORT).show();
+                            }
                         }
+
                     }
 
                     @Override
@@ -67,6 +74,4 @@ public class MainActivity extends AppCompatActivity {
 
 
     }
-
-
 }
