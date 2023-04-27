@@ -5,23 +5,18 @@ import java.time.LocalDate;
 public class User {
     Long id;
 
-    String loginCode;
-
     String password;
 
     String fullName;
 
     String email;
 
-    LocalDate createdAt;
 
-    public User(Long id, String loginCode, String password, String fullName, String email, LocalDate createdAt) {
+    public User(Long id, String password, String fullName, String email) {
         this.id = id;
-        this.loginCode = loginCode;
         this.password = password;
         this.fullName = fullName;
         this.email = email;
-        this.createdAt = createdAt;
     }
 
     public Long getId() {
@@ -30,14 +25,6 @@ public class User {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public String getLoginCode() {
-        return loginCode;
-    }
-
-    public void setLoginCode(String loginCode) {
-        this.loginCode = loginCode;
     }
 
     public String getPassword() {
@@ -64,23 +51,13 @@ public class User {
         this.email = email;
     }
 
-    public LocalDate getCreatedAt() {
-        return createdAt;
-    }
-
-    public void setCreatedAt(LocalDate createdAt) {
-        this.createdAt = createdAt;
-    }
-
     @Override
     public String toString() {
         return "User{" +
                 "id=" + id +
-                ", loginCode='" + loginCode + '\'' +
                 ", password='" + password + '\'' +
                 ", fullName='" + fullName + '\'' +
                 ", email='" + email + '\'' +
-                ", createdAt=" + createdAt +
                 '}';
     }
 }

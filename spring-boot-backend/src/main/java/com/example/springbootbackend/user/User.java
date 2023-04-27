@@ -1,101 +1,71 @@
 package com.example.springbootbackend.user;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
+import com.example.springbootbackend.token.Token;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
-import java.time.LocalDate;
+import java.util.Collection;
+import java.util.List;
 
+@Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
-@Table(name = "Users")
-public class User {
+@Table(name = "users")
+public class User implements UserDetails {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Long id;
+  @Id
+  @GeneratedValue
+  private Integer id;
+  private String fullName;
+  private String email;
+  private String password;
 
-    String loginCode;
+  @Enumerated(EnumType.STRING)
+  private Role role;
 
-    String password;
+  @OneToMany(mappedBy = "user")
+  private List<Token> tokens;
 
-    String fullName;
+  @Override
+  public Collection<? extends GrantedAuthority> getAuthorities() {
+    return List.of(new SimpleGrantedAuthority(role.name()));
+  }
 
-    String email;
+  @Override
+  public String getPassword() {
+    return password;
+  }
 
-    @JsonFormat(pattern = "yyyy-MM-dd")
-    LocalDate createdAt;
+  @Override
+  public String getUsername() {
+    return email;
+  }
 
+  @Override
+  public boolean isAccountNonExpired() {
+    return true;
+  }
 
+  @Override
+  public boolean isAccountNonLocked() {
+    return true;
+  }
 
-    public User() {
+  @Override
+  public boolean isCredentialsNonExpired() {
+    return true;
+  }
 
-    }
-
-    public User(Long id, String loginCode, String password, String fullName, String email) {
-        this.id = id;
-        this.loginCode = loginCode;
-        this.password = password;
-        this.fullName = fullName;
-        this.email = email;
-        this.createdAt = LocalDate.now();
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getLoginCode() {
-        return loginCode;
-    }
-
-    public void setLoginCode(String loginCode) {
-        this.loginCode = loginCode;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public String getFullName() {
-        return fullName;
-    }
-
-    public void setFullName(String fullName) {
-        this.fullName = fullName;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public LocalDate getCreatedAt() {
-        return this.createdAt;
-    }
-
-    public void setCreatedAt(LocalDate createdAt) {
-        this.createdAt = createdAt;
-    }
-
-    @Override
-    public String toString() {
-        return "User{" +
-                "id=" + id +
-                ", login_code='" + loginCode + '\'' +
-                ", password='" + password + '\'' +
-                ", fullName='" + fullName + '\'' +
-                ", email='" + email + '\'' +
-                ", createdAt=" + createdAt.toString() +
-                '}';
-    }
+  @Override
+  public boolean isEnabled() {
+    return true;
+  }
 }

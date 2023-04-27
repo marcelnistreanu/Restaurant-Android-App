@@ -1,21 +1,21 @@
 package com.example.restaurantapp.user;
 
 public class LoginRequest {
-    private String loginCode;
+    private String email;
 
     private String password;
 
-    public LoginRequest(String loginCode, String password) {
-        this.loginCode = loginCode;
+    public LoginRequest(String email, String password) {
+        this.email = email;
         this.password = password;
     }
 
-    public String getLoginCode() {
-        return loginCode;
+    public String getEmail() {
+        return email;
     }
 
-    public void setLoginCode(String loginCode) {
-        this.loginCode = loginCode;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getPassword() {
