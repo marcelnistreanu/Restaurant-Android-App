@@ -1,8 +1,13 @@
-package com.example.restaurantapp.user;
+package com.example.restaurantapp.auth;
+
+import com.google.gson.annotations.SerializedName;
 
 public class AuthResponse {
+
+    @SerializedName("access_token")
     String accessToken;
 
+    @SerializedName("refresh_token")
     String refreshToken;
 
     public String getAccessToken() {

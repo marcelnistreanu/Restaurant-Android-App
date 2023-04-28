@@ -6,17 +6,19 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.restaurantapp.retrofit.RetrofitService;
-import com.example.restaurantapp.user.AuthResponse;
-import com.example.restaurantapp.user.LoginRequest;
-import com.example.restaurantapp.user.User;
-import com.example.restaurantapp.user.UserService;
+import com.example.restaurantapp.auth.AuthResponse;
+import com.example.restaurantapp.auth.AuthRequest;
+import com.example.restaurantapp.user.ApiService;
 
+
+import java.io.IOException;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -25,9 +27,9 @@ import retrofit2.Response;
 
 public class MainActivity extends AppCompatActivity {
 
-    EditText editId, editPassword;
+    EditText editEmail, editPassword;
     Button btnLogin;
-    UserService userService;
+    ApiService apiService;
     SharedPreferences sharedPreferences;
 
 
@@ -41,22 +43,24 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void performLogin() {
-        userService = RetrofitService.getUserService();
-        sharedPreferences = getSharedPreferences("MyPrefs", MODE_PRIVATE);
+        apiService = RetrofitService.getApiService();
+        sharedPreferences = getSharedPreferences("myPrefs", MODE_PRIVATE);
 
-        editId = findViewById(R.id.editTextId);
+        editEmail = findViewById(R.id.editTextEmail);
         editPassword = findViewById(R.id.editTextPassword);
 
-        String loginCode = String.valueOf(editId.getText());
+        String email = String.valueOf(editEmail.getText());
         String password = String.valueOf(editPassword.getText());
 
-        LoginRequest loginRequest = new LoginRequest(loginCode, password);
+        AuthRequest authRequest = new AuthRequest(email, password);
 
-        userService.login(loginRequest).enqueue(new Callback<AuthResponse>() {
+        apiService.authenticate(authRequest).enqueue(new Callback<AuthResponse>() {
             @Override
             public void onResponse(Call<AuthResponse> call, Response<AuthResponse> response) {
-                if (TextUtils.isEmpty(loginCode)) {
-                    Toast.makeText(MainActivity.this, "Enter Login code", Toast.LENGTH_SHORT).show();
+                int statusCode = response.code();
+                Log.d("RESPONSE_CODE", "Response code: " + statusCode);
+                if (TextUtils.isEmpty(email)) {
+                    Toast.makeText(MainActivity.this, "Enter Email", Toast.LENGTH_SHORT).show();
                 } else if (TextUtils.isEmpty(password)) {
                     Toast.makeText(MainActivity.this, "Enter Password", Toast.LENGTH_SHORT).show();
                 } else {
@@ -66,11 +70,24 @@ public class MainActivity extends AppCompatActivity {
                         sharedPreferences.edit().putString("access_token", accessToken).apply();
                         sharedPreferences.edit().putString("refresh_token", refreshToken).apply();
 
+                        Log.d("TOKENS", "Access token: " + accessToken);
+                        Log.d("TOKENS", "Refresh token: " + refreshToken);
+
                         Toast.makeText(MainActivity.this, "Login successful", Toast.LENGTH_SHORT).show();
                         Intent intent = new Intent(getApplicationContext(), Dashboard.class);
                         startActivity(intent);
                     } else {
-                        Toast.makeText(MainActivity.this, "Login failed", Toast.LENGTH_SHORT).show();
+                        String message = "";
+                        try {
+                            message = response.errorBody().string();
+                        } catch (IOException e){
+                            e.printStackTrace();
+                        }
+                        if(message.contains("Error: Email not found.")){
+                            Toast.makeText(MainActivity.this, "Error: Email not found.", Toast.LENGTH_SHORT).show();
+                        } else if(message.contains("Error: Invalid password.")) {
+                            Toast.makeText(MainActivity.this, "Error: Invalid password.", Toast.LENGTH_SHORT).show();
+                        }
                     }
                 }
 

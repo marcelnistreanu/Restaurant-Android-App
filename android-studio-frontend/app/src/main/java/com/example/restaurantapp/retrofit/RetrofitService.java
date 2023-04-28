@@ -1,25 +1,25 @@
 package com.example.restaurantapp.retrofit;
 
-import com.example.restaurantapp.user.UserService;
+import com.example.restaurantapp.user.ApiService;
 
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class RetrofitService {
 
-    private static UserService userService;
+    private static ApiService apiService;
 
-    public static UserService getUserService(){
-        if(userService == null){
+    public static ApiService getApiService(){
+        if(apiService == null){
             Retrofit retrofit = new Retrofit.Builder()
                     .baseUrl("http://192.168.1.108:8080")
                     .addConverterFactory(GsonConverterFactory.create())
                     .build();
 
-            userService = retrofit.create(UserService.class);
+            apiService = retrofit.create(ApiService.class);
         }
 
-        return userService;
+        return apiService;
     }
 
 
