@@ -1,5 +1,6 @@
-package com.example.springbootbackend.token;
+package com.example.springbootbackend.repositories;
 
+import com.example.springbootbackend.entities.Token;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 

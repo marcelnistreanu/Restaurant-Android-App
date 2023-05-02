@@ -2,18 +2,12 @@ package com.example.springbootbackend.auth;
 
 import com.example.springbootbackend.config.JwtService;
 import com.example.springbootbackend.dto.UserDto;
-import com.example.springbootbackend.services.UserDetailsImpl;
 import com.example.springbootbackend.services.UserService;
-import com.example.springbootbackend.user.User;
-import com.example.springbootbackend.user.UserRepository;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;

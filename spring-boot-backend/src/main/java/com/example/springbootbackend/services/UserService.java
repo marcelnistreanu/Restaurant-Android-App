@@ -1,8 +1,8 @@
 package com.example.springbootbackend.services;
 
 import com.example.springbootbackend.dto.UserDto;
-import com.example.springbootbackend.user.User;
-import com.example.springbootbackend.user.UserRepository;
+import com.example.springbootbackend.entities.User;
+import com.example.springbootbackend.repositories.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

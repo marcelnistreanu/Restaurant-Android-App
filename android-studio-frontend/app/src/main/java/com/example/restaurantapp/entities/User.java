@@ -1,4 +1,4 @@
-package com.example.restaurantapp.user;
+package com.example.restaurantapp.entities;
 
 import java.time.LocalDate;
 

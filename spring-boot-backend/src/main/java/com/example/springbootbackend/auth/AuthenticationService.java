@@ -1,12 +1,12 @@
 package com.example.springbootbackend.auth;
 
 import com.example.springbootbackend.config.JwtService;
-import com.example.springbootbackend.token.Token;
-import com.example.springbootbackend.token.TokenRepository;
-import com.example.springbootbackend.token.TokenType;
-import com.example.springbootbackend.user.Role;
-import com.example.springbootbackend.user.User;
-import com.example.springbootbackend.user.UserRepository;
+import com.example.springbootbackend.entities.Token;
+import com.example.springbootbackend.repositories.TokenRepository;
+import com.example.springbootbackend.entities.TokenType;
+import com.example.springbootbackend.entities.Role;
+import com.example.springbootbackend.entities.User;
+import com.example.springbootbackend.repositories.UserRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;

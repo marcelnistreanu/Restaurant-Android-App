@@ -1,17 +1,14 @@
 package com.example.springbootbackend.services;
 
-import com.example.springbootbackend.user.Role;
-import com.example.springbootbackend.user.User;
+import com.example.springbootbackend.entities.Role;
+import com.example.springbootbackend.entities.User;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class UserDetailsImpl implements UserDetails {
 

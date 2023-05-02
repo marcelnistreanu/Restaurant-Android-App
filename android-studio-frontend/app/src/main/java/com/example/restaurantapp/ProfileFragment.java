@@ -14,7 +14,7 @@ import android.widget.Toast;
 
 import com.example.restaurantapp.retrofit.RetrofitService;
 import com.example.restaurantapp.user.ApiService;
-import com.example.restaurantapp.user.User;
+import com.example.restaurantapp.entities.User;
 
 import retrofit2.Call;
 import retrofit2.Callback;
