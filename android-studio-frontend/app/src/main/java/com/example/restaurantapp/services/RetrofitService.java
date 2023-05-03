@@ -1,6 +1,4 @@
-package com.example.restaurantapp.retrofit;
-
-import com.example.restaurantapp.user.ApiService;
+package com.example.restaurantapp.services;
 
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -12,7 +10,7 @@ public class RetrofitService {
     public static ApiService getApiService(){
         if(apiService == null){
             Retrofit retrofit = new Retrofit.Builder()
-                    .baseUrl("http://192.168.1.108:8080")
+                    .baseUrl("http://192.168.1.104:8080")
                     .addConverterFactory(GsonConverterFactory.create())
                     .build();
 

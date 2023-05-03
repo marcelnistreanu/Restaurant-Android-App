@@ -1,4 +1,4 @@
-package com.example.restaurantapp;
+package com.example.restaurantapp.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
@@ -7,8 +7,9 @@ import androidx.fragment.app.FragmentTransaction;
 
 import android.os.Bundle;
 
+import com.example.restaurantapp.R;
 import com.example.restaurantapp.databinding.ActivityDashboardBinding;
-import com.example.restaurantapp.databinding.ActivityMainBinding;
+//import com.example.restaurantapp.databinding.ActivityMainBinding;
 
 public class Dashboard extends AppCompatActivity {
 

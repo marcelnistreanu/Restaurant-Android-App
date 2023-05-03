@@ -1,4 +1,4 @@
-package com.example.restaurantapp;
+package com.example.restaurantapp.activities;
 
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -12,8 +12,9 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.restaurantapp.retrofit.RetrofitService;
-import com.example.restaurantapp.user.ApiService;
+import com.example.restaurantapp.R;
+import com.example.restaurantapp.services.RetrofitService;
+import com.example.restaurantapp.services.ApiService;
 import com.example.restaurantapp.entities.User;
 
 import retrofit2.Call;

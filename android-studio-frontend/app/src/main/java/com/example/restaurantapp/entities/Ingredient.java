@@ -25,4 +25,12 @@ public class Ingredient {
     public void setIngredientName(String ingredientName) {
         this.ingredientName = ingredientName;
     }
+
+    @Override
+    public String toString() {
+        return "Ingredient{" +
+                "id=" + id +
+                ", ingredientName='" + ingredientName + '\'' +
+                '}';
+    }
 }

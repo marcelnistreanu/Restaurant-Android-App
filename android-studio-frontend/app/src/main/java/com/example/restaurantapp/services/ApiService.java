@@ -1,10 +1,11 @@
-package com.example.restaurantapp.user;
+package com.example.restaurantapp.services;
 
 import com.example.restaurantapp.auth.AuthResponse;
 import com.example.restaurantapp.auth.AuthRequest;
 import com.example.restaurantapp.entities.FoodItem;
 import com.example.restaurantapp.entities.User;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -24,7 +25,7 @@ public interface ApiService {
     Call<User> getUser(@Header("Authorization") String token);
 
     @GET("/api/v1/food/getAll")
-    Call <List<FoodItem>> getAllFoodItems();
+    Call <ArrayList<FoodItem>> getAllFoodItems();
 
     @GET("api/v1/food/getFood/{foodName}")
     Call<FoodItem> getFoodItem(@Path("foodName") String foodName);

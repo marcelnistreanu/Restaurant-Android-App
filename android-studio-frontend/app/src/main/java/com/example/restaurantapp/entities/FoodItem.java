@@ -91,4 +91,18 @@ public class FoodItem {
     public void setIngredients(Set<Ingredient> ingredients) {
         this.ingredients = ingredients;
     }
+
+    @Override
+    public String toString() {
+        return "FoodItem{" +
+                "id=" + id +
+                ", foodName='" + foodName + '\'' +
+                ", description='" + description + '\'' +
+                ", price=" + price +
+                ", calories=" + calories +
+                ", imageUrl='" + imageUrl + '\'' +
+                ", category=" + category +
+                ", ingredients=" + ingredients +
+                '}';
+    }
 }

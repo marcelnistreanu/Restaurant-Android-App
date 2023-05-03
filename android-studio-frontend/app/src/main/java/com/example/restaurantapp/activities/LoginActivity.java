@@ -1,4 +1,4 @@
-package com.example.restaurantapp;
+package com.example.restaurantapp.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -12,10 +12,11 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.example.restaurantapp.retrofit.RetrofitService;
+import com.example.restaurantapp.R;
+import com.example.restaurantapp.services.RetrofitService;
 import com.example.restaurantapp.auth.AuthResponse;
 import com.example.restaurantapp.auth.AuthRequest;
-import com.example.restaurantapp.user.ApiService;
+import com.example.restaurantapp.services.ApiService;
 
 
 import java.io.IOException;
@@ -25,7 +26,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 
-public class MainActivity extends AppCompatActivity {
+public class LoginActivity extends AppCompatActivity {
 
     EditText editEmail, editPassword;
     Button btnLogin;
@@ -36,7 +37,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_login);
 
         setupLoginButton();
 
@@ -60,9 +61,9 @@ public class MainActivity extends AppCompatActivity {
                 int statusCode = response.code();
                 Log.d("RESPONSE_CODE", "Response code: " + statusCode);
                 if (TextUtils.isEmpty(email)) {
-                    Toast.makeText(MainActivity.this, "Enter Email", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(LoginActivity.this, "Enter Email", Toast.LENGTH_SHORT).show();
                 } else if (TextUtils.isEmpty(password)) {
-                    Toast.makeText(MainActivity.this, "Enter Password", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(LoginActivity.this, "Enter Password", Toast.LENGTH_SHORT).show();
                 } else {
                     if (response.isSuccessful()) {
                         String accessToken = response.body().getAccessToken();
@@ -73,7 +74,7 @@ public class MainActivity extends AppCompatActivity {
                         Log.d("TOKENS", "Access token: " + accessToken);
                         Log.d("TOKENS", "Refresh token: " + refreshToken);
 
-                        Toast.makeText(MainActivity.this, "Login successful", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(LoginActivity.this, "Login successful", Toast.LENGTH_SHORT).show();
                         Intent intent = new Intent(getApplicationContext(), Dashboard.class);
                         startActivity(intent);
                     } else {
@@ -84,9 +85,9 @@ public class MainActivity extends AppCompatActivity {
                             e.printStackTrace();
                         }
                         if(message.contains("Error: Email not found.")){
-                            Toast.makeText(MainActivity.this, "Error: Email not found.", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(LoginActivity.this, "Error: Email not found.", Toast.LENGTH_SHORT).show();
                         } else if(message.contains("Error: Invalid password.")) {
-                            Toast.makeText(MainActivity.this, "Error: Invalid password.", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(LoginActivity.this, "Error: Invalid password.", Toast.LENGTH_SHORT).show();
                         }
                     }
                 }
@@ -95,7 +96,7 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<AuthResponse> call, Throwable t) {
-                Toast.makeText(MainActivity.this, "Login failed: " + t.getMessage(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(LoginActivity.this, "Login failed: " + t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
     }
