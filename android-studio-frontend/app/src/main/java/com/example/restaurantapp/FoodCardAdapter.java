@@ -12,12 +12,12 @@ import com.example.restaurantapp.entities.FoodItem;
 
 import java.util.ArrayList;
 
-public class MyAdapter extends RecyclerView.Adapter<MyHolder> {
+public class FoodCardAdapter extends RecyclerView.Adapter<FoodCardHolder> {
 
     Context context;
     ArrayList<FoodItem> foodItems;
 
-    public MyAdapter(Context context, ArrayList<FoodItem> foodItems) {
+    public FoodCardAdapter(Context context, ArrayList<FoodItem> foodItems) {
         this.context = context;
         this.foodItems = foodItems;
     }
@@ -40,16 +40,16 @@ public class MyAdapter extends RecyclerView.Adapter<MyHolder> {
 
     @NonNull
     @Override
-    public MyHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public FoodCardHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.row, null);
 
 
-        return new MyHolder(view);
+        return new FoodCardHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull MyHolder holder, int position) {
+    public void onBindViewHolder(@NonNull FoodCardHolder holder, int position) {
 
         holder.foodNameTextView.setText(foodItems.get(position).getFoodName());
         holder.foodPriceTextView.setText(String.valueOf(foodItems.get(position).getPrice()));
