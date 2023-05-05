@@ -1,4 +1,4 @@
-package com.example.restaurantapp;
+package com.example.restaurantapp.recyclerview;
 
 import android.view.View;
 import android.widget.TextView;
@@ -6,11 +6,13 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-public class FoodCardHolder extends RecyclerView.ViewHolder {
+import com.example.restaurantapp.R;
+
+public class OrderCardHolder extends RecyclerView.ViewHolder {
 
     TextView foodNameTextView, foodPriceTextView;
 
-    public FoodCardHolder(@NonNull View itemView) {
+    public OrderCardHolder(@NonNull View itemView) {
         super(itemView);
 
         this.foodNameTextView = itemView.findViewById(R.id.foodName);

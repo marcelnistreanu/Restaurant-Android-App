@@ -11,9 +11,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.restaurantapp.FoodCardAdapter;
 import com.example.restaurantapp.R;
 import com.example.restaurantapp.entities.FoodItem;
+import com.example.restaurantapp.recyclerview.FoodCardAdapter;
 import com.example.restaurantapp.services.ApiService;
 import com.example.restaurantapp.services.RetrofitService;
 
@@ -67,18 +67,17 @@ public class MenuListFragment extends Fragment {
         loadFoodList();
 
 
-
         return view;
     }
 
-    private void loadFoodList(){
+    private void loadFoodList() {
         apiService = RetrofitService.getApiService();
         Call<ArrayList<FoodItem>> call = apiService.getAllFoodItems();
 
         call.enqueue(new Callback<ArrayList<FoodItem>>() {
             @Override
             public void onResponse(Call<ArrayList<FoodItem>> call, Response<ArrayList<FoodItem>> response) {
-                if(response.isSuccessful()){
+                if (response.isSuccessful()) {
                     ArrayList<FoodItem> foodItemList = response.body();
                     myAdapter = new FoodCardAdapter(getContext(), foodItemList);
                     myRecyclerView.setAdapter(myAdapter);

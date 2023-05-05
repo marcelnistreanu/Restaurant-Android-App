@@ -3,12 +3,18 @@ package com.example.restaurantapp.activities;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.restaurantapp.R;
+import com.example.restaurantapp.entities.FoodItem;
+import com.example.restaurantapp.recyclerview.FoodCardAdapter;
+
+import java.util.ArrayList;
 
 public class CurrentOrderFragment extends Fragment {
 
@@ -17,6 +23,10 @@ public class CurrentOrderFragment extends Fragment {
 
     private String mParam1;
     private String mParam2;
+
+    private RecyclerView orderRecyclerView;
+
+    private FoodCardAdapter orderAdapter;
 
     public CurrentOrderFragment() {
     }
@@ -42,7 +52,23 @@ public class CurrentOrderFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_current_order, container, false);
+        View view = inflater.inflate(R.layout.fragment_current_order, container, false);
+
+        orderRecyclerView = view.findViewById(R.id.recyclerView2);
+        orderRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+
+        orderAdapter = new FoodCardAdapter(getContext(), loadFoodList());
+        orderRecyclerView.setAdapter(orderAdapter);
+
+        return view;
+    }
+
+    private ArrayList<FoodItem> loadFoodList() {
+        ArrayList<FoodItem> selectedItems = new ArrayList<>();
+        selectedItems.add(new FoodItem("Pizza", 20));
+        selectedItems.add(new FoodItem("Mayo", 5));
+        selectedItems.add(new FoodItem("Cheburek", 2430));
+
+        return selectedItems;
     }
 }

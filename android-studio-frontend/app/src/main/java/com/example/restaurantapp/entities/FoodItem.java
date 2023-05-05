@@ -28,6 +28,11 @@ public class FoodItem {
         this.ingredients = ingredients;
     }
 
+    public FoodItem(String foodName, double price) {
+        this.foodName = foodName;
+        this.price = price;
+    }
+
     public Long getId() {
         return id;
     }
