@@ -3,6 +3,7 @@ package com.example.restaurantapp.activities;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -11,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.restaurantapp.CurrentOrderViewModel;
 import com.example.restaurantapp.R;
 import com.example.restaurantapp.entities.FoodItem;
 import com.example.restaurantapp.recyclerview.FoodCardAdapter;
@@ -35,6 +37,9 @@ public class MenuListFragment extends Fragment {
     private FoodCardAdapter myAdapter;
     private ApiService apiService;
 
+    private CurrentOrderViewModel currentOrderViewModel;
+
+
     public MenuListFragment() {
     }
 
@@ -50,6 +55,7 @@ public class MenuListFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        currentOrderViewModel = new ViewModelProvider(requireActivity()).get(CurrentOrderViewModel.class);
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
@@ -79,7 +85,7 @@ public class MenuListFragment extends Fragment {
             public void onResponse(Call<ArrayList<FoodItem>> call, Response<ArrayList<FoodItem>> response) {
                 if (response.isSuccessful()) {
                     ArrayList<FoodItem> foodItemList = response.body();
-                    myAdapter = new FoodCardAdapter(getContext(), foodItemList);
+                    myAdapter = new FoodCardAdapter(getContext(), foodItemList, currentOrderViewModel);
                     myRecyclerView.setAdapter(myAdapter);
                     Log.d("Food item list", foodItemList.toString());
                 }

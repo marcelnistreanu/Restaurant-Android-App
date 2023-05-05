@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.restaurantapp.CurrentOrderViewModel;
 import com.example.restaurantapp.R;
 import com.example.restaurantapp.entities.FoodItem;
 
@@ -18,9 +19,12 @@ public class OrderCardAdapter extends RecyclerView.Adapter<OrderCardHolder>{
     Context context;
     ArrayList<FoodItem> selectedItems;
 
-    public OrderCardAdapter(Context context, ArrayList<FoodItem> selectedItems) {
+    CurrentOrderViewModel currentOrderViewModel;
+
+    public OrderCardAdapter(Context context, ArrayList<FoodItem> selectedItems, CurrentOrderViewModel currentOrderViewModel) {
         this.context = context;
         this.selectedItems = selectedItems;
+        this.currentOrderViewModel = currentOrderViewModel;
     }
 
     public Context getContext() {
@@ -42,7 +46,7 @@ public class OrderCardAdapter extends RecyclerView.Adapter<OrderCardHolder>{
     @NonNull
     @Override
     public OrderCardHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.row, null);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.row_current_order, null);
 
 
         return new OrderCardHolder(view);
@@ -53,7 +57,7 @@ public class OrderCardAdapter extends RecyclerView.Adapter<OrderCardHolder>{
         FoodItem foodItem = selectedItems.get(position);
 
         holder.foodNameTextView.setText(foodItem.getFoodName());
-        holder.foodPriceTextView.setText(String.valueOf(foodItem.getPrice()));
+        holder.foodPriceTextView.setText(String.valueOf(foodItem.getPrice()) + " LEI");
     }
 
     @Override

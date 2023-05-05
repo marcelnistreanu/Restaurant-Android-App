@@ -9,6 +9,7 @@
 
 
     <LinearLayout
+        android:id="@+id/cardView"
         android:layout_width="match_parent"
         android:layout_height="130dp"
         android:background="@drawable/btn_box"

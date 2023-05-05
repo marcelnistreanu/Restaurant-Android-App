@@ -2,19 +2,29 @@ package com.example.restaurantapp.activities;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.restaurantapp.BuildConfig;
+import com.example.restaurantapp.CurrentOrderViewModel;
 import com.example.restaurantapp.R;
 import com.example.restaurantapp.entities.FoodItem;
 import com.example.restaurantapp.recyclerview.FoodCardAdapter;
+import com.example.restaurantapp.recyclerview.OrderCardAdapter;
 
 import java.util.ArrayList;
+
+import timber.log.Timber;
 
 public class CurrentOrderFragment extends Fragment {
 
@@ -26,7 +36,9 @@ public class CurrentOrderFragment extends Fragment {
 
     private RecyclerView orderRecyclerView;
 
-    private FoodCardAdapter orderAdapter;
+    private OrderCardAdapter orderAdapter;
+
+    private CurrentOrderViewModel currentOrderViewModel;
 
     public CurrentOrderFragment() {
     }
@@ -43,9 +55,13 @@ public class CurrentOrderFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        currentOrderViewModel = new ViewModelProvider(requireActivity()).get(CurrentOrderViewModel.class);
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
+        }
+        if (BuildConfig.DEBUG) {
+            Timber.plant(new Timber.DebugTree());
         }
     }
 
@@ -54,21 +70,29 @@ public class CurrentOrderFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_current_order, container, false);
 
-        orderRecyclerView = view.findViewById(R.id.recyclerView2);
-        orderRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-
-        orderAdapter = new FoodCardAdapter(getContext(), loadFoodList());
-        orderRecyclerView.setAdapter(orderAdapter);
+        dispaySelectedItems(view);
 
         return view;
     }
 
-    private ArrayList<FoodItem> loadFoodList() {
-        ArrayList<FoodItem> selectedItems = new ArrayList<>();
-        selectedItems.add(new FoodItem("Pizza", 20));
-        selectedItems.add(new FoodItem("Mayo", 5));
-        selectedItems.add(new FoodItem("Cheburek", 2430));
+    private void dispaySelectedItems(View view) {
+        orderRecyclerView = view.findViewById(R.id.recyclerView2);
+        orderRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
-        return selectedItems;
+        orderAdapter = new OrderCardAdapter(getContext(), new ArrayList<FoodItem>(), currentOrderViewModel);
+        orderRecyclerView.setAdapter(orderAdapter);
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        currentOrderViewModel.getSelectedItems().observe(getViewLifecycleOwner(), new Observer<ArrayList<FoodItem>>() {
+            @Override
+            public void onChanged(ArrayList<FoodItem> foodItems) {
+                orderAdapter.setSelectedItems(foodItems);
+                Timber.tag("CurrentOrderFragment").d("Selected items changed: %s", foodItems.toString());
+            }
+        });
     }
 }
