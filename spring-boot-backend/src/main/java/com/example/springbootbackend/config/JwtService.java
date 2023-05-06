@@ -20,9 +20,9 @@ public class JwtService {
 
     @Value("404E635266556A586E3272357538782F413F4428472B4B6250645367566B5970")
     private String secretKey;
-    @Value("60000")
+    @Value("60000000000000000")
     private long jwtExpiration;
-    @Value("604800000")
+    @Value("60480000000000000")
     private long refreshExpiration;
 
     public String extractUsername(String token) {

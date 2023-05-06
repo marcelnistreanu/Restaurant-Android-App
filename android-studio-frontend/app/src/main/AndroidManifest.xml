@@ -19,11 +19,6 @@
             android:name=".activities.MenuActivity"
             android:exported="false" />
         <activity
-            android:name=".test"
-            android:exported="false"
-            android:label="@string/title_activity_test"
-            android:theme="@style/Theme.RestaurantApp.NoActionBar" />
-        <activity
             android:name=".activities.Dashboard"
             android:exported="false" />
         <activity

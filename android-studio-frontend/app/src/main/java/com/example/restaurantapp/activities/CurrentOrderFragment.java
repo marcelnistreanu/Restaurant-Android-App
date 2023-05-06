@@ -24,7 +24,6 @@ import com.example.restaurantapp.recyclerview.OrderCardAdapter;
 
 import java.util.ArrayList;
 
-import timber.log.Timber;
 
 public class CurrentOrderFragment extends Fragment {
 
@@ -60,9 +59,6 @@ public class CurrentOrderFragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
-        if (BuildConfig.DEBUG) {
-            Timber.plant(new Timber.DebugTree());
-        }
     }
 
     @Override
@@ -91,7 +87,6 @@ public class CurrentOrderFragment extends Fragment {
             @Override
             public void onChanged(ArrayList<FoodItem> foodItems) {
                 orderAdapter.setSelectedItems(foodItems);
-                Timber.tag("CurrentOrderFragment").d("Selected items changed: %s", foodItems.toString());
             }
         });
     }

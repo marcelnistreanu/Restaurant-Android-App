@@ -21,7 +21,7 @@ public class FoodCardAdapter extends RecyclerView.Adapter<FoodCardHolder> {
     Context context;
     ArrayList<FoodItem> foodItems;
 
-    ArrayList<FoodItem> selectedItems = new ArrayList<>();
+    static ArrayList<FoodItem> selectedItems = new ArrayList<>();
     CurrentOrderViewModel currentOrderViewModel;
 
 
@@ -64,6 +64,7 @@ public class FoodCardAdapter extends RecyclerView.Adapter<FoodCardHolder> {
 
         holder.foodNameTextView.setText(foodItem.getFoodName());
         holder.foodPriceTextView.setText(String.valueOf(foodItem.getPrice()) + " LEI");
+        holder.addButton.setEnabled(!selectedItems.contains(foodItem));
         holder.addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
