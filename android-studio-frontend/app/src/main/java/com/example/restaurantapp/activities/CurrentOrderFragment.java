@@ -14,15 +14,26 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.Toast;
 
 import com.example.restaurantapp.BuildConfig;
 import com.example.restaurantapp.CurrentOrderViewModel;
 import com.example.restaurantapp.R;
 import com.example.restaurantapp.entities.FoodItem;
+import com.example.restaurantapp.entities.Order;
+import com.example.restaurantapp.entities.OrderItem;
 import com.example.restaurantapp.recyclerview.FoodCardAdapter;
 import com.example.restaurantapp.recyclerview.OrderCardAdapter;
+import com.example.restaurantapp.services.ApiService;
+import com.example.restaurantapp.services.RetrofitService;
 
 import java.util.ArrayList;
+import java.util.Date;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 
 public class CurrentOrderFragment extends Fragment {
@@ -32,12 +43,13 @@ public class CurrentOrderFragment extends Fragment {
 
     private String mParam1;
     private String mParam2;
-
     private RecyclerView orderRecyclerView;
-
+    private Button sendOrderButton;
     private OrderCardAdapter orderAdapter;
-
     private CurrentOrderViewModel currentOrderViewModel;
+
+    private ArrayList<OrderItem> orderItems;
+    private ApiService apiService;
 
     public CurrentOrderFragment() {
     }
@@ -77,6 +89,8 @@ public class CurrentOrderFragment extends Fragment {
 
         orderAdapter = new OrderCardAdapter(getContext(), new ArrayList<FoodItem>(), currentOrderViewModel);
         orderRecyclerView.setAdapter(orderAdapter);
+
+        setupSendOrderButton(view);
     }
 
     @Override
@@ -87,6 +101,50 @@ public class CurrentOrderFragment extends Fragment {
             @Override
             public void onChanged(ArrayList<FoodItem> foodItems) {
                 orderAdapter.setSelectedItems(foodItems);
+            }
+        });
+    }
+
+    private void setupSendOrderButton(View view) {
+        sendOrderButton = view.findViewById(R.id.btnSendOrder);
+        ArrayList<FoodItem> selectedItems = currentOrderViewModel.getSelectedItems().getValue();
+        if (selectedItems != null) {
+            Order order = new Order();
+            order.setStatus("IN PREPARATION");
+            orderItems = currentOrderViewModel.createOrder(selectedItems, order);
+//            order.setOrderItems(orderItems);
+            Log.d("Order items", "orderItems: " + orderItems);
+            Log.d("Order", "order: " + order);
+            sendOrderButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    performSendOrder(order);
+                }
+            });
+        }
+
+
+    }
+
+    private void performSendOrder(Order order) {
+        apiService = RetrofitService.getApiService();
+        Call<Void> call = apiService.sendOrder(order);
+        call.enqueue(new Callback<Void>() {
+            @Override
+            public void onResponse(Call<Void> call, Response<Void> response) {
+                if (response.isSuccessful()) {
+                    Toast.makeText(getContext(), "Order sent to kitchen", Toast.LENGTH_SHORT).show();
+                    currentOrderViewModel.getSelectedItems().getValue().clear();
+                    orderAdapter.notifyDataSetChanged();
+                } else {
+                    Toast.makeText(getContext(), "Failed to send", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Void> call, Throwable t) {
+                Log.d("Order failed", "order failed to send: " + t.getMessage());
+                Toast.makeText(getContext(), "Failed to send", Toast.LENGTH_SHORT).show();
             }
         });
     }

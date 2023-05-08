@@ -34,7 +34,7 @@ public class AuthenticationController {
     @PostMapping("/authenticate")
     public ResponseEntity<?> authenticate(@RequestBody AuthenticationRequest request) {
         ResponseEntity<?> checkCredentialsResponse = service.checkCredentials(request);
-        if(checkCredentialsResponse.getStatusCode() != HttpStatus.OK){
+        if (checkCredentialsResponse.getStatusCode() != HttpStatus.OK) {
             return checkCredentialsResponse;
         }
         return ResponseEntity.ok(service.authenticate(request));

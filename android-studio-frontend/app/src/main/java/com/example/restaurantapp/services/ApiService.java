@@ -3,6 +3,7 @@ package com.example.restaurantapp.services;
 import com.example.restaurantapp.auth.AuthResponse;
 import com.example.restaurantapp.auth.AuthRequest;
 import com.example.restaurantapp.entities.FoodItem;
+import com.example.restaurantapp.entities.Order;
 import com.example.restaurantapp.entities.User;
 
 import java.util.ArrayList;
@@ -29,4 +30,7 @@ public interface ApiService {
 
     @GET("api/v1/food/getFood/{foodName}")
     Call<FoodItem> getFoodItem(@Path("foodName") String foodName);
+
+    @POST("api/v1/food/sendOrder")
+    Call<Void> sendOrder(@Body Order order);
 }
