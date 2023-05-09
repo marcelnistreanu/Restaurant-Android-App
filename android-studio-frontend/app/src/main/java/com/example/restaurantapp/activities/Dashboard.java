@@ -9,7 +9,6 @@ import android.os.Bundle;
 
 import com.example.restaurantapp.R;
 import com.example.restaurantapp.databinding.ActivityDashboardBinding;
-//import com.example.restaurantapp.databinding.ActivityMainBinding;
 
 public class Dashboard extends AppCompatActivity {
 

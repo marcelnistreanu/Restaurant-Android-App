@@ -51,7 +51,6 @@ public class FoodCardAdapter extends RecyclerView.Adapter<FoodCardHolder> {
     @NonNull
     @Override
     public FoodCardHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.row_menu_list, null);
 
 

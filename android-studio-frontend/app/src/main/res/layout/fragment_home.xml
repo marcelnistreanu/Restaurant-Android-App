@@ -40,23 +40,23 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btnSchedule" />
 
-    <TextView
-        android:id="@+id/btnTips"
-        android:layout_width="160dp"
-        android:layout_height="110dp"
-        android:layout_marginTop="60dp"
-        android:background="@drawable/btn_box"
-        android:drawableTop="@drawable/tips_icon"
-        android:elevation="10dp"
-        android:gravity="center"
-        android:padding="10dp"
-        android:text="TIPS"
-        android:textColor="@color/black"
-        android:textSize="20sp"
-        app:layout_constraintEnd_toStartOf="@+id/guideline"
-        app:layout_constraintHorizontal_bias="0.444"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnTables" />
+<!--    <TextView-->
+<!--        android:id="@+id/btnTips"-->
+<!--        android:layout_width="160dp"-->
+<!--        android:layout_height="110dp"-->
+<!--        android:layout_marginTop="60dp"-->
+<!--        android:background="@drawable/btn_box"-->
+<!--        android:drawableTop="@drawable/tips_icon"-->
+<!--        android:elevation="10dp"-->
+<!--        android:gravity="center"-->
+<!--        android:padding="10dp"-->
+<!--        android:text="TIPS"-->
+<!--        android:textColor="@color/black"-->
+<!--        android:textSize="20sp"-->
+<!--        app:layout_constraintEnd_toStartOf="@+id/guideline"-->
+<!--        app:layout_constraintHorizontal_bias="0.444"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/btnTables" />-->
 
     <TextView
         android:id="@+id/btnOrders"
@@ -74,7 +74,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.567"
         app:layout_constraintStart_toStartOf="@+id/guideline"
-        app:layout_constraintTop_toBottomOf="@+id/btnMenuOrder" />
+        app:layout_constraintTop_toBottomOf="@+id/btnMenuOrder"
+        android:clickable="true"/>
 
     <TextView
         android:id="@+id/btnSchedule"

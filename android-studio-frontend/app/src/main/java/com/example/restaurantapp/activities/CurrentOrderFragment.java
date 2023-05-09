@@ -17,19 +17,16 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.Toast;
 
-import com.example.restaurantapp.BuildConfig;
 import com.example.restaurantapp.CurrentOrderViewModel;
 import com.example.restaurantapp.R;
 import com.example.restaurantapp.entities.FoodItem;
 import com.example.restaurantapp.entities.Order;
 import com.example.restaurantapp.entities.OrderItem;
-import com.example.restaurantapp.recyclerview.FoodCardAdapter;
-import com.example.restaurantapp.recyclerview.OrderCardAdapter;
+import com.example.restaurantapp.recyclerview.CurrentOrderCardAdapter;
 import com.example.restaurantapp.services.ApiService;
 import com.example.restaurantapp.services.RetrofitService;
 
 import java.util.ArrayList;
-import java.util.Date;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -45,7 +42,7 @@ public class CurrentOrderFragment extends Fragment {
     private String mParam2;
     private RecyclerView orderRecyclerView;
     private Button sendOrderButton;
-    private OrderCardAdapter orderAdapter;
+    private CurrentOrderCardAdapter orderAdapter;
     private CurrentOrderViewModel currentOrderViewModel;
 
     private ArrayList<OrderItem> orderItems;
@@ -87,7 +84,7 @@ public class CurrentOrderFragment extends Fragment {
         orderRecyclerView = view.findViewById(R.id.recyclerView2);
         orderRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
-        orderAdapter = new OrderCardAdapter(getContext(), new ArrayList<FoodItem>(), currentOrderViewModel);
+        orderAdapter = new CurrentOrderCardAdapter(getContext(), new ArrayList<FoodItem>(), currentOrderViewModel);
         orderRecyclerView.setAdapter(orderAdapter);
 
         setupSendOrderButton(view);

@@ -33,4 +33,7 @@ public interface ApiService {
 
     @POST("api/v1/food/sendOrder")
     Call<Void> sendOrder(@Body Order order);
+
+    @GET("api/v1/food/getAllOrders")
+    Call<ArrayList<Order>> getAllOrders();
 }
