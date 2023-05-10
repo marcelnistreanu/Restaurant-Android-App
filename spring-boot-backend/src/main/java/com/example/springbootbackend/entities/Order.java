@@ -32,7 +32,7 @@ public class Order {
 
     private String notes;
 
-    private String status;
+    private String status = "PREPARING";
 
     private double totalAmount;
 }

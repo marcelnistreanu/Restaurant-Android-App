@@ -1,5 +1,7 @@
 package com.example.restaurantapp.entities;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -7,7 +9,7 @@ public class Order {
 
     private Long id;
 
-    private List<OrderItem> orderItems;
+    private ArrayList<OrderItem> orderItems;
 
     private Date orderDate;
 
@@ -17,7 +19,7 @@ public class Order {
 
     private double totalAmount;
 
-    public Order(Long id, List<OrderItem> orderItems, Date orderDate, String notes, String status, double totalAmount) {
+    public Order(Long id, ArrayList<OrderItem> orderItems, Date orderDate, String notes, String status, double totalAmount) {
         this.id = id;
         this.orderItems = orderItems;
         this.orderDate = orderDate;
@@ -37,11 +39,11 @@ public class Order {
         this.id = id;
     }
 
-    public List<OrderItem> getOrderItems() {
+    public ArrayList<OrderItem> getOrderItems() {
         return orderItems;
     }
 
-    public void setOrderItems(List<OrderItem> orderItems) {
+    public void setOrderItems(ArrayList<OrderItem> orderItems) {
         this.orderItems = orderItems;
     }
 

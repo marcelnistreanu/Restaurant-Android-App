@@ -107,7 +107,7 @@ public class CurrentOrderFragment extends Fragment {
         ArrayList<FoodItem> selectedItems = currentOrderViewModel.getSelectedItems().getValue();
         if (selectedItems != null) {
             Order order = new Order();
-            order.setStatus("IN PREPARATION");
+            order.setStatus("PREPARING");
             orderItems = currentOrderViewModel.createOrder(selectedItems, order);
 //            order.setOrderItems(orderItems);
             Log.d("Order items", "orderItems: " + orderItems);
