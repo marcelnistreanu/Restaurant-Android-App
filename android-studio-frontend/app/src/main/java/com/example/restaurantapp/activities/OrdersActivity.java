@@ -3,10 +3,12 @@ package com.example.restaurantapp.activities;
 import android.util.Log;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import com.example.restaurantapp.R;
+import com.example.restaurantapp.SwipeToDeleteCallback;
 import com.example.restaurantapp.entities.Order;
 import com.example.restaurantapp.recyclerview.OrderCardAdapter;
 import com.example.restaurantapp.services.ApiService;
@@ -56,6 +58,10 @@ public class OrdersActivity extends AppCompatActivity {
                     orderCardAdapter = new OrderCardAdapter(getApplicationContext(), ordersList);
                     orderCardAdapter.sortOrdersList();
                     orderRecyclerView.setAdapter(orderCardAdapter);
+
+                    ItemTouchHelper itemTouchHelper = new ItemTouchHelper(new SwipeToDeleteCallback(orderCardAdapter));
+                    itemTouchHelper.attachToRecyclerView(orderRecyclerView);
+
                     swipeRefreshLayout.setRefreshing(false);
                     Log.d("Order list", "orderList: " + ordersList);
                 }

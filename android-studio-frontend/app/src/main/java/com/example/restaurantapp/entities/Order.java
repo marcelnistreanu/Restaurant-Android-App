@@ -19,6 +19,8 @@ public class Order {
 
     private double totalAmount;
 
+    private boolean expanded;
+
     public Order(Long id, ArrayList<OrderItem> orderItems, Date orderDate, String notes, String status, double totalAmount) {
         this.id = id;
         this.orderItems = orderItems;
@@ -26,6 +28,15 @@ public class Order {
         this.notes = notes;
         this.status = status;
         this.totalAmount = totalAmount;
+        this.expanded = false;
+    }
+
+    public boolean isExpanded() {
+        return expanded;
+    }
+
+    public void setExpanded(boolean expanded) {
+        this.expanded = expanded;
     }
 
     public Order() {

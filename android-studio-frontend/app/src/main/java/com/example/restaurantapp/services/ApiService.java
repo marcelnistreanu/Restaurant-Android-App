@@ -36,4 +36,7 @@ public interface ApiService {
 
     @GET("api/v1/food/getAllOrders")
     Call<ArrayList<Order>> getAllOrders();
+
+    @POST("api/v1/food/deleteOrder/{orderId}")
+    Call<Void> deleteOrder(@Path("orderId") Long orderId);
 }

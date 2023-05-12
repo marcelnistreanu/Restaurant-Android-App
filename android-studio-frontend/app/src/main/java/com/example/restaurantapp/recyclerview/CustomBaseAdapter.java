@@ -48,11 +48,6 @@ public class CustomBaseAdapter extends BaseAdapter {
         orderItemName = view.findViewById(R.id.orderItemNameTextView);
         orderItemName.setText(orderItems.get(i).getFoodItem().getFoodName());
 
-//        linearLayout = view.findViewById(R.id.linear_layout);
-//        int currentHeight = linearLayout.getHeight();
-//        int newHeight = currentHeight + (dpToPx(100) * orderItems.size());
-//        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, newHeight);
-//        linearLayout.setLayoutParams(params);
 
         return view;
     }

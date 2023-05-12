@@ -1,6 +1,7 @@
 package com.example.restaurantapp.recyclerview;
 
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -18,8 +19,10 @@ public class OrderCardHolder extends RecyclerView.ViewHolder {
     ListView orderItemsListView;
     CardView ordersCardView;
     ConstraintLayout orderConstraintLayout;
-
     ConstraintLayout expandableLayout;
+    LinearLayout expandButton;
+    ImageView arrowImage;
+
 
     public OrderCardHolder(@NonNull @NotNull View itemView) {
         super(itemView);
@@ -31,5 +34,8 @@ public class OrderCardHolder extends RecyclerView.ViewHolder {
         this.ordersCardView = itemView.findViewById(R.id.ordersCardView);
         this.orderConstraintLayout = itemView.findViewById(R.id.orderConstraintLayout);
         this.expandableLayout = itemView.findViewById(R.id.exapandableLayout);
+        this.expandButton = itemView.findViewById(R.id.arrow_button);
+        this.arrowImage = itemView.findViewById(R.id.arrow_image);
+
     }
 }

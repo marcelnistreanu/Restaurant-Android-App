@@ -10,6 +10,7 @@ import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -22,11 +23,15 @@ public class OrderController {
 
     @PostMapping("/sendOrder")
     public ResponseEntity<?> sendOrder(@RequestBody Order order) {
-        Order savedOrder =  orderRepository.save(order);
-        for(OrderItem orderItem : order.getOrderItems()) {
+        Order savedOrder = orderRepository.save(order);
+        double totalAmount = 0;
+        for (OrderItem orderItem : order.getOrderItems()) {
             orderItem.setOrder(savedOrder);
             orderItemRepository.save(orderItem);
+            totalAmount += orderItem.getFoodItem().getPrice();
         }
+        savedOrder.setTotalAmount(totalAmount);
+        orderRepository.save(savedOrder);
 
         return ResponseEntity.ok("Order sent successfully");
     }
@@ -40,5 +45,15 @@ public class OrderController {
     @GetMapping("/getAllOrderItems")
     public ResponseEntity<?> getAllOrderItems() {
         return ResponseEntity.ok(orderItemRepository.findAll());
+    }
+
+    @PostMapping("/deleteOrder/{orderId}")
+    public ResponseEntity<?> deleteOrder(@PathVariable Long orderId) {
+        Order order = orderRepository.findById(orderId).orElseThrow();
+        ArrayList<OrderItem> orderItems =  orderItemRepository.findByOrder(order);
+        orderItemRepository.deleteAll(orderItems);
+        orderRepository.delete(order);
+
+        return ResponseEntity.ok("Order deleted successfully");
     }
 }
