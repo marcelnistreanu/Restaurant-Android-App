@@ -1,10 +1,12 @@
 package com.example.restaurantapp.recyclerview;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -14,7 +16,7 @@ import com.example.restaurantapp.entities.FoodItem;
 
 import java.util.ArrayList;
 
-public class CurrentOrderCardAdapter extends RecyclerView.Adapter<CurrentOrderCardHolder>{
+public class CurrentOrderCardAdapter extends RecyclerView.Adapter<CurrentOrderCardHolder> {
 
     Context context;
     ArrayList<FoodItem> selectedItems;
@@ -58,6 +60,15 @@ public class CurrentOrderCardAdapter extends RecyclerView.Adapter<CurrentOrderCa
 
         holder.foodNameTextView.setText(foodItem.getFoodName());
         holder.foodPriceTextView.setText(String.valueOf(foodItem.getPrice()) + " LEI");
+        holder.removeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                selectedItems.remove(foodItem);
+                notifyDataSetChanged();
+                Toast.makeText(getContext(), "Food item removed", Toast.LENGTH_SHORT).show();
+                Log.d("Selected items:", "items: " + selectedItems);
+            }
+        });
     }
 
     @Override

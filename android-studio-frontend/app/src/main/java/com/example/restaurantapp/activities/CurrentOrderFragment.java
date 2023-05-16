@@ -104,14 +104,15 @@ public class CurrentOrderFragment extends Fragment {
 
     private void setupSendOrderButton(View view) {
         sendOrderButton = view.findViewById(R.id.btnSendOrder);
+        orderAdapter.notifyDataSetChanged();
         ArrayList<FoodItem> selectedItems = currentOrderViewModel.getSelectedItems().getValue();
+        Log.d("Selected items", "" + selectedItems);
         if (selectedItems != null) {
             Order order = new Order();
             order.setStatus("PREPARING");
             orderItems = currentOrderViewModel.createOrder(selectedItems, order);
-//            order.setOrderItems(orderItems);
             Log.d("Order items", "orderItems: " + orderItems);
-            Log.d("Order", "order: " + order);
+            Log.d("New Order", "order: " + order);
             sendOrderButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
