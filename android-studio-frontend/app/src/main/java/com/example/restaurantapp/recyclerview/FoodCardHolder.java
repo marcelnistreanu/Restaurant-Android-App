@@ -13,7 +13,7 @@ import com.example.restaurantapp.R;
 public class FoodCardHolder extends RecyclerView.ViewHolder {
 
     TextView foodNameTextView, foodPriceTextView;
-    ImageView addButton;
+    ImageView addButton, foodImage;
 
     public FoodCardHolder(@NonNull View itemView) {
         super(itemView);
@@ -21,5 +21,6 @@ public class FoodCardHolder extends RecyclerView.ViewHolder {
         this.foodNameTextView = itemView.findViewById(R.id.foodName);
         this.foodPriceTextView = itemView.findViewById(R.id.foodPrice);
         this.addButton = itemView.findViewById(R.id.btnAdd);
+        this.foodImage = itemView.findViewById(R.id.food_img);
     }
 }

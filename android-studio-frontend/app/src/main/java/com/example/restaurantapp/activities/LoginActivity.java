@@ -73,20 +73,26 @@ public class LoginActivity extends AppCompatActivity {
 
                         Log.d("TOKENS", "Access token: " + accessToken);
                         Log.d("TOKENS", "Refresh token: " + refreshToken);
-
                         Toast.makeText(LoginActivity.this, "Login successful", Toast.LENGTH_SHORT).show();
-                        Intent intent = new Intent(getApplicationContext(), Dashboard.class);
-                        startActivity(intent);
+
+                        if (response.body().getRole().equals("WAITER")) {
+                            Intent intent = new Intent(getApplicationContext(), Dashboard.class);
+                            startActivity(intent);
+                        } else if(response.body().getRole().equals("CHEF")) {
+                            Intent intent = new Intent(getApplicationContext(), DashboardChefActivity.class);
+                            startActivity(intent);
+                        }
+
                     } else {
                         String message = "";
                         try {
                             message = response.errorBody().string();
-                        } catch (IOException e){
+                        } catch (IOException e) {
                             e.printStackTrace();
                         }
-                        if(message.contains("Error: Email not found.")){
+                        if (message.contains("Error: Email not found.")) {
                             Toast.makeText(LoginActivity.this, "Error: Email not found.", Toast.LENGTH_SHORT).show();
-                        } else if(message.contains("Error: Invalid password.")) {
+                        } else if (message.contains("Error: Invalid password.")) {
                             Toast.makeText(LoginActivity.this, "Error: Invalid password.", Toast.LENGTH_SHORT).show();
                         }
                     }

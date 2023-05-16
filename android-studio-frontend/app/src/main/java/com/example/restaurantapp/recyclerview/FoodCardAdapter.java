@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.restaurantapp.CurrentOrderViewModel;
 import com.example.restaurantapp.R;
 import com.example.restaurantapp.entities.FoodItem;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -63,6 +64,7 @@ public class FoodCardAdapter extends RecyclerView.Adapter<FoodCardHolder> {
 
         holder.foodNameTextView.setText(foodItem.getFoodName());
         holder.foodPriceTextView.setText(String.valueOf(foodItem.getPrice()) + " LEI");
+        Picasso.get().load(foodItem.getImageUrl()).into(holder.foodImage);
         holder.addButton.setEnabled(!selectedItems.contains(foodItem));
         holder.addButton.setOnClickListener(new View.OnClickListener() {
             @Override

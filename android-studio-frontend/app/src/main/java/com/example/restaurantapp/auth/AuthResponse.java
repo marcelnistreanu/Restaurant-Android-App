@@ -10,6 +10,8 @@ public class AuthResponse {
     @SerializedName("refresh_token")
     String refreshToken;
 
+    String role;
+
     public String getAccessToken() {
         return accessToken;
     }
@@ -24,5 +26,13 @@ public class AuthResponse {
 
     public void setRefreshToken(String refreshToken) {
         this.refreshToken = refreshToken;
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
     }
 }

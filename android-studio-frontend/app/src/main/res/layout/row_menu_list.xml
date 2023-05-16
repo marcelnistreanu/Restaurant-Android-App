@@ -23,28 +23,43 @@
             android:layout_marginRight="15dp"
             android:orientation="horizontal">
 
+            <LinearLayout android:layout_width="130dp" android:layout_height="94dp">
+                <ImageView
+                        android:id="@+id/food_img"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:scaleType="fitCenter">
+
+                </ImageView>
+            </LinearLayout>
+
+
             <LinearLayout
-                android:layout_width="281dp"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-
-                <TextView
-                    android:id="@+id/foodName"
-                    android:layout_width="203dp"
+                    android:layout_width="127dp"
                     android:layout_height="wrap_content"
-                    android:text="foodName"
-                    android:textColor="@color/black"
-                    android:textSize="22sp" />
+                    android:orientation="vertical"
+                    android:layout_marginLeft="20dp">
 
 
                 <TextView
-                    android:id="@+id/foodPrice"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp"
-                    android:text="foodPrice"
-                    android:textColor="#880808"
-                    android:textSize="20sp" />
+                        android:id="@+id/foodName"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="foodName"
+                        android:textColor="@color/black"
+                        android:textSize="22sp"/>
+
+
+                <TextView
+                        android:id="@+id/foodPrice"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="15dp"
+                        android:text="foodPrice"
+                        android:textColor="#880808"
+                        android:textSize="20sp"
+                        android:maxLines="2"
+                        android:ellipsize="end"/>
 
 
             </LinearLayout>
