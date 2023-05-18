@@ -10,24 +10,19 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import com.example.restaurantapp.R;
 import com.example.restaurantapp.SwipeToDeleteCallback;
 import com.example.restaurantapp.entities.Order;
-import com.example.restaurantapp.recyclerview.OrderCardAdapter;
+import com.example.restaurantapp.recyclerview.OrderWaiterCardAdapter;
 import com.example.restaurantapp.services.ApiService;
 import com.example.restaurantapp.services.RetrofitService;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
 
-import static com.example.restaurantapp.R.id.orderRecyclerView;
-
-public class OrdersActivity extends AppCompatActivity {
+public class OrdersWaiterActivity extends AppCompatActivity {
 
     private RecyclerView orderRecyclerView;
-    private OrderCardAdapter orderCardAdapter;
+    private OrderWaiterCardAdapter orderWaiterCardAdapter;
     private ApiService apiService;
     private ArrayList<Order> ordersList;
 
@@ -36,7 +31,7 @@ public class OrdersActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_orders);
+        setContentView(R.layout.activity_orders_waiter);
 
         setUpSwipeRefresher();
 
@@ -55,11 +50,11 @@ public class OrdersActivity extends AppCompatActivity {
             public void onResponse(Call<ArrayList<Order>> call, Response<ArrayList<Order>> response) {
                 if (response.isSuccessful()) {
                     ordersList = response.body();
-                    orderCardAdapter = new OrderCardAdapter(getApplicationContext(), ordersList);
-                    orderCardAdapter.sortOrdersList();
-                    orderRecyclerView.setAdapter(orderCardAdapter);
+                    orderWaiterCardAdapter = new OrderWaiterCardAdapter(getApplicationContext(), ordersList);
+                    orderWaiterCardAdapter.sortOrdersList();
+                    orderRecyclerView.setAdapter(orderWaiterCardAdapter);
 
-                    ItemTouchHelper itemTouchHelper = new ItemTouchHelper(new SwipeToDeleteCallback(orderCardAdapter));
+                    ItemTouchHelper itemTouchHelper = new ItemTouchHelper(new SwipeToDeleteCallback(orderWaiterCardAdapter));
                     itemTouchHelper.attachToRecyclerView(orderRecyclerView);
 
                     swipeRefreshLayout.setRefreshing(false);

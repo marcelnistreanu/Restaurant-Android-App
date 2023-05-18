@@ -1,16 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
-        android:id="@+id/linear_layout"
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:clickable="false">
+        android:layout_height="match_parent">
 
     <TextView
-            android:id="@+id/orderItemNameTextView"
+            android:id="@+id/order_item_kitchen_text_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="My text"
+            android:text="Order item"
             android:textSize="20sp"
             android:textColor="@color/black"
             android:layout_marginTop="10dp"

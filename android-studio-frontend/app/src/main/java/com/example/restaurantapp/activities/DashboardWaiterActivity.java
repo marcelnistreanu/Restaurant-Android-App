@@ -8,22 +8,22 @@ import androidx.fragment.app.FragmentTransaction;
 import android.os.Bundle;
 
 import com.example.restaurantapp.R;
-import com.example.restaurantapp.databinding.ActivityDashboardBinding;
+import com.example.restaurantapp.databinding.ActivityDashboardWaiterBinding;
 
-public class Dashboard extends AppCompatActivity {
+public class DashboardWaiterActivity extends AppCompatActivity {
 
-    ActivityDashboardBinding binding;
+    ActivityDashboardWaiterBinding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding = ActivityDashboardBinding.inflate(getLayoutInflater());
+        binding = ActivityDashboardWaiterBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         replaceFragment(new HomeFragment());
 
         binding.bottomNavigationView.setOnItemSelectedListener(item -> {
 
-            switch (item.getItemId()){
+            switch (item.getItemId()) {
 
                 case R.id.home:
                     replaceFragment(new HomeFragment());
@@ -33,9 +33,6 @@ public class Dashboard extends AppCompatActivity {
                     replaceFragment(new ProfileFragment());
                     break;
 
-                case R.id.settings:
-                    replaceFragment(new SettingsFragment());
-                    break;
             }
 
             return true;
@@ -43,7 +40,7 @@ public class Dashboard extends AppCompatActivity {
 
     }
 
-    private void replaceFragment(Fragment fragment){
+    private void replaceFragment(Fragment fragment) {
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.dashboard_frame, fragment);

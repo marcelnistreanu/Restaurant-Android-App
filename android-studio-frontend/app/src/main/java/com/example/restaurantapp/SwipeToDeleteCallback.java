@@ -3,13 +3,13 @@ package com.example.restaurantapp;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.RecyclerView;
-import com.example.restaurantapp.recyclerview.OrderCardAdapter;
+import com.example.restaurantapp.recyclerview.OrderWaiterCardAdapter;
 import org.jetbrains.annotations.NotNull;
 
 public class SwipeToDeleteCallback extends ItemTouchHelper.SimpleCallback {
-    private OrderCardAdapter mAdapter;
+    private OrderWaiterCardAdapter mAdapter;
 
-    public SwipeToDeleteCallback(OrderCardAdapter adapter) {
+    public SwipeToDeleteCallback(OrderWaiterCardAdapter adapter) {
         super(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT);
         this.mAdapter = adapter;
     }

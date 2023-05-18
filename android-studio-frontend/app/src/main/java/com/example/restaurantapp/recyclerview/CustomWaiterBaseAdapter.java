@@ -13,7 +13,7 @@ import com.example.restaurantapp.entities.OrderItem;
 
 import java.util.ArrayList;
 
-public class CustomBaseAdapter extends BaseAdapter {
+public class CustomWaiterBaseAdapter extends BaseAdapter {
 
     Context context;
     ArrayList<OrderItem> orderItems;
@@ -21,7 +21,7 @@ public class CustomBaseAdapter extends BaseAdapter {
     TextView orderItemName;
     LinearLayout linearLayout;
 
-    public CustomBaseAdapter(Context context, ArrayList<OrderItem> orderItems) {
+    public CustomWaiterBaseAdapter(Context context, ArrayList<OrderItem> orderItems) {
         this.context = context;
         this.orderItems = orderItems;
         inflater = LayoutInflater.from(context);
@@ -44,15 +44,10 @@ public class CustomBaseAdapter extends BaseAdapter {
 
     @Override
     public View getView(int i, View view, ViewGroup viewGroup) {
-        view = inflater.inflate(R.layout.row_order_item, null);
-        orderItemName = view.findViewById(R.id.orderItemNameTextView);
+        view = inflater.inflate(R.layout.row_order_item_waiter, null);
+        orderItemName = view.findViewById(R.id.order_item_name_waiter_text_view);
         orderItemName.setText(orderItems.get(i).getFoodItem().getFoodName());
 
-
         return view;
-    }
-
-    private int dpToPx(int dp) {
-        return (int) (dp * Resources.getSystem().getDisplayMetrics().density);
     }
 }

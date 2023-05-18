@@ -39,4 +39,7 @@ public interface ApiService {
 
     @POST("api/v1/food/deleteOrder/{orderId}")
     Call<Void> deleteOrder(@Path("orderId") Long orderId);
+
+    @POST("api/v1/food/sendReadyOrder/{orderId}")
+    Call<Void> sendReadyOrder(@Path("orderId") Long orderId);
 }

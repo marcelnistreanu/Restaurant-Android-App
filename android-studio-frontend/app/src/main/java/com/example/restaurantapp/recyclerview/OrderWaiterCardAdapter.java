@@ -10,8 +10,6 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.restaurantapp.R;
-import com.example.restaurantapp.activities.OrdersActivity;
-import com.example.restaurantapp.entities.Order;
 import com.example.restaurantapp.entities.Order;
 import com.example.restaurantapp.services.ApiService;
 import com.example.restaurantapp.services.RetrofitService;
@@ -25,12 +23,12 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.Objects;
 
-public class OrderCardAdapter extends RecyclerView.Adapter<OrderCardHolder> {
+public class OrderWaiterCardAdapter extends RecyclerView.Adapter<OrderWaiterCardHolder> {
 
     Context context;
     ArrayList<Order> orderList;
 
-    public OrderCardAdapter(Context context, ArrayList<Order> orderList) {
+    public OrderWaiterCardAdapter(Context context, ArrayList<Order> orderList) {
         this.context = context;
         this.orderList = orderList;
     }
@@ -54,15 +52,15 @@ public class OrderCardAdapter extends RecyclerView.Adapter<OrderCardHolder> {
     @NonNull
     @NotNull
     @Override
-    public OrderCardHolder onCreateViewHolder(@NonNull @NotNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.row_orders, null);
+    public OrderWaiterCardHolder onCreateViewHolder(@NonNull @NotNull ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.row_orders_waiter, null);
 
 
-        return new OrderCardHolder(view);
+        return new OrderWaiterCardHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull @NotNull OrderCardHolder holder, int position) {
+    public void onBindViewHolder(@NonNull @NotNull OrderWaiterCardHolder holder, int position) {
         Order order = orderList.get(position);
 
         holder.orderId.setText(order.getId().toString());
@@ -75,7 +73,7 @@ public class OrderCardAdapter extends RecyclerView.Adapter<OrderCardHolder> {
             holder.status.setLayoutParams(params);
         }
 
-        CustomBaseAdapter orderItemListAdapter = new CustomBaseAdapter(getContext(), order.getOrderItems());
+        CustomWaiterBaseAdapter orderItemListAdapter = new CustomWaiterBaseAdapter(getContext(), order.getOrderItems());
         holder.orderItemsListView.setAdapter(orderItemListAdapter);
 
         setDefaultCardSize(holder, order);
@@ -109,7 +107,7 @@ public class OrderCardAdapter extends RecyclerView.Adapter<OrderCardHolder> {
         return (int) (dp * Resources.getSystem().getDisplayMetrics().density);
     }
 
-    private void setCardSize(@NonNull OrderCardHolder holder, Order order) {
+    private void setCardSize(@NonNull OrderWaiterCardHolder holder, Order order) {
         int currentHeightList = dpToPx(30);
         Log.d("currentHeightList", "currentHeightList: " + currentHeightList);
         int newHeightList = currentHeightList + (dpToPx(40) * order.getOrderItems().size());
@@ -140,7 +138,7 @@ public class OrderCardAdapter extends RecyclerView.Adapter<OrderCardHolder> {
         holder.ordersCardView.setLayoutParams(layoutParamsCardView);
     }
 
-    private void setDefaultCardSize(@NonNull OrderCardHolder holder, Order order) {
+    private void setDefaultCardSize(@NonNull OrderWaiterCardHolder holder, Order order) {
         int defaultHeightList = holder.orderItemsListView.getHeight();
         ViewGroup.LayoutParams layoutParamsList = holder.orderItemsListView.getLayoutParams();
         layoutParamsList.height = defaultHeightList;

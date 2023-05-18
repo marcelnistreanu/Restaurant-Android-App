@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.restaurantapp.R;
 import org.jetbrains.annotations.NotNull;
 
-public class OrderCardHolder extends RecyclerView.ViewHolder {
+public class OrderWaiterCardHolder extends RecyclerView.ViewHolder {
 
     TextView orderId, status;
     LinearLayout statusBackground;
@@ -24,7 +24,7 @@ public class OrderCardHolder extends RecyclerView.ViewHolder {
     ImageView arrowImage;
 
 
-    public OrderCardHolder(@NonNull @NotNull View itemView) {
+    public OrderWaiterCardHolder(@NonNull @NotNull View itemView) {
         super(itemView);
 
         this.orderId = itemView.findViewById(R.id.orderIdTextView);

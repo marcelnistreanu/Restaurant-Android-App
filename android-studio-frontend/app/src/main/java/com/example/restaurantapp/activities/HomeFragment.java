@@ -75,7 +75,7 @@ public class HomeFragment extends Fragment {
         ordersTextView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getContext(), OrdersActivity.class);
+                Intent intent = new Intent(getContext(), OrdersWaiterActivity.class);
                 startActivity(intent);
             }
         });

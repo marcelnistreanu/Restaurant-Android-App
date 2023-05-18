@@ -16,16 +16,19 @@
             android:usesCleartextTraffic="true"
             tools:targetApi="31">
         <activity
-                android:name=".activities.DashboardChefActivity"
+                android:name=".activities.OrdersKitchenActivity"
                 android:exported="false"/>
         <activity
-                android:name=".activities.OrdersActivity"
+                android:name=".activities.DashboardKitchenActivity"
+                android:exported="false"/>
+        <activity
+                android:name=".activities.OrdersWaiterActivity"
                 android:exported="false"/>
         <activity
                 android:name=".activities.MenuActivity"
                 android:exported="false"/>
         <activity
-                android:name=".activities.Dashboard"
+                android:name=".activities.DashboardWaiterActivity"
                 android:exported="false"/>
         <activity
                 android:name=".activities.LoginActivity"

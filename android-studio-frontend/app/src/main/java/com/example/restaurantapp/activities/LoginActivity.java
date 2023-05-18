@@ -76,10 +76,10 @@ public class LoginActivity extends AppCompatActivity {
                         Toast.makeText(LoginActivity.this, "Login successful", Toast.LENGTH_SHORT).show();
 
                         if (response.body().getRole().equals("WAITER")) {
-                            Intent intent = new Intent(getApplicationContext(), Dashboard.class);
+                            Intent intent = new Intent(getApplicationContext(), DashboardWaiterActivity.class);
                             startActivity(intent);
                         } else if(response.body().getRole().equals("CHEF")) {
-                            Intent intent = new Intent(getApplicationContext(), DashboardChefActivity.class);
+                            Intent intent = new Intent(getApplicationContext(), DashboardKitchenActivity.class);
                             startActivity(intent);
                         }
 
