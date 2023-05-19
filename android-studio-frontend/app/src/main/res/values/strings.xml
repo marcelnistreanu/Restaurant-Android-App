@@ -4,4 +4,5 @@
     <string name="tab_text_1">Menu</string>
     <string name="tab_text_2">Current Order</string>
     <string name="title_activity_test">test</string>
+    <string name="default_notification_channel_id">my_default_channel</string>
 </resources>

@@ -4,16 +4,13 @@ import com.example.springbootbackend.entities.Order;
 import com.example.springbootbackend.entities.OrderItem;
 import com.example.springbootbackend.repositories.OrderItemRepository;
 import com.example.springbootbackend.repositories.OrderRepository;
+import com.example.springbootbackend.services.FirebaseMessagingService;
 import lombok.RequiredArgsConstructor;
-import org.aspectj.bridge.Message;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
-import java.util.List;
-import java.util.NoSuchElementException;
 
 @RestController
 @RequestMapping("api/v1/food")
@@ -22,6 +19,8 @@ public class OrderController {
 
     private final OrderRepository orderRepository;
     private final OrderItemRepository orderItemRepository;
+
+    private final FirebaseMessagingService firebaseMessagingService;
 
     @PostMapping("/sendOrder")
     public ResponseEntity<?> sendOrder(@RequestBody Order order) {
@@ -62,12 +61,12 @@ public class OrderController {
     @PostMapping("/sendReadyOrder/{orderId}")
     public ResponseEntity<?> readySendOrder(@PathVariable Long orderId) {
         Order order = orderRepository.findById(orderId).orElseThrow();
-        if (order.getStatus().equals("READY")) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Order already has status READY");
-        } else {
-            order.setStatus("READY");
-            orderRepository.save(order);
-            return ResponseEntity.ok("Order set to ready");
-        }
+
+        order.setStatus("READY");
+        orderRepository.save(order);
+        firebaseMessagingService.sendNotificationByToken(orderId);
+        return ResponseEntity.ok("Order set to ready");
+
     }
+
 }

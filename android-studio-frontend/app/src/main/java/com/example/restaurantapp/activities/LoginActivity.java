@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
@@ -17,6 +18,9 @@ import com.example.restaurantapp.services.RetrofitService;
 import com.example.restaurantapp.auth.AuthResponse;
 import com.example.restaurantapp.auth.AuthRequest;
 import com.example.restaurantapp.services.ApiService;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.messaging.FirebaseMessaging;
 
 
 import java.io.IOException;
@@ -40,6 +44,7 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
 
         setupLoginButton();
+        retrieveDeviceToken();
 
     }
 
@@ -78,7 +83,7 @@ public class LoginActivity extends AppCompatActivity {
                         if (response.body().getRole().equals("WAITER")) {
                             Intent intent = new Intent(getApplicationContext(), DashboardWaiterActivity.class);
                             startActivity(intent);
-                        } else if(response.body().getRole().equals("CHEF")) {
+                        } else if (response.body().getRole().equals("CHEF")) {
                             Intent intent = new Intent(getApplicationContext(), DashboardKitchenActivity.class);
                             startActivity(intent);
                         }
@@ -116,5 +121,24 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    private void retrieveDeviceToken() {
+        FirebaseMessaging.getInstance().getToken()
+                .addOnCompleteListener(new OnCompleteListener<String>() {
+                    @Override
+                    public void onComplete(@NonNull Task<String> task) {
+                        if (!task.isSuccessful()) {
+                            Log.d("TAG", "Fetching FCM registration token failed");
+                            return;
+                        }
+
+                        // Get new FCM registration token
+                        String token = task.getResult();
+
+                        // Log and toast
+                        Log.d("Device token", token);
+                    }
+                });
     }
 }
