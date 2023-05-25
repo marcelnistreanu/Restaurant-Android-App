@@ -35,4 +35,7 @@ public class Order {
     private String status = "PREPARING";
 
     private double totalAmount;
+
+    @OneToOne(mappedBy = "order")
+    private TableEntity table;
 }

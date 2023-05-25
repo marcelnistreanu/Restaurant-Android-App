@@ -17,7 +17,7 @@ public class HomeFragment extends Fragment {
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
-    private TextView menuTextView, ordersTextView;
+    private TextView menuTextView, ordersTextView, tablesTextView;
 
     private String mParam1;
     private String mParam2;
@@ -55,6 +55,7 @@ public class HomeFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
         navigateToMenu(view);
         navigateToOrders(view);
+        navigateToTables(view);
 
         return view;
     }
@@ -76,6 +77,17 @@ public class HomeFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getContext(), OrdersWaiterActivity.class);
+                startActivity(intent);
+            }
+        });
+    }
+
+    private void navigateToTables(View view) {
+        tablesTextView = view.findViewById(R.id.btn_tables);
+        tablesTextView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getContext(), TablesActivity.class);
                 startActivity(intent);
             }
         });

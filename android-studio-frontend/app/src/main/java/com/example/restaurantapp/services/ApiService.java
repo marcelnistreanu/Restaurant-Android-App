@@ -4,6 +4,7 @@ import com.example.restaurantapp.auth.AuthResponse;
 import com.example.restaurantapp.auth.AuthRequest;
 import com.example.restaurantapp.entities.FoodItem;
 import com.example.restaurantapp.entities.Order;
+import com.example.restaurantapp.entities.TableEntity;
 import com.example.restaurantapp.entities.User;
 
 import java.util.ArrayList;
@@ -42,4 +43,7 @@ public interface ApiService {
 
     @POST("api/v1/food/sendReadyOrder/{orderId}")
     Call<Void> sendReadyOrder(@Path("orderId") Long orderId);
+
+    @GET("api/v1/food/getTablesList")
+    Call<ArrayList<TableEntity>> getTablesList();
 }
