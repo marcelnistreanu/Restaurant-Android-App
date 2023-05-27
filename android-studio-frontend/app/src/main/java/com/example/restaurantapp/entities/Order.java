@@ -19,6 +19,8 @@ public class Order {
 
     private double totalAmount;
 
+    private TableEntity table;
+
     private boolean expanded;
 
     public Order(Long id, ArrayList<OrderItem> orderItems, Date orderDate, String notes, String status, double totalAmount) {
@@ -88,5 +90,27 @@ public class Order {
 
     public void setTotalAmount(double totalAmount) {
         this.totalAmount = totalAmount;
+    }
+
+    public TableEntity getTable() {
+        return table;
+    }
+
+    public void setTable(TableEntity table) {
+        this.table = table;
+    }
+
+    @Override
+    public String toString() {
+        return "Order{" +
+                "id=" + id +
+                ", orderItems=" + orderItems +
+                ", orderDate=" + orderDate +
+                ", notes='" + notes + '\'' +
+                ", status='" + status + '\'' +
+                ", totalAmount=" + totalAmount +
+                ", table=" + table +
+                ", expanded=" + expanded +
+                '}';
     }
 }

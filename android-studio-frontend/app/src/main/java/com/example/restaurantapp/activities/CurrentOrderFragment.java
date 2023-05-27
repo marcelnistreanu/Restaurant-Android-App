@@ -18,10 +18,12 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.example.restaurantapp.CurrentOrderViewModel;
+import com.example.restaurantapp.CurrentOrderViewModelFactory;
 import com.example.restaurantapp.R;
 import com.example.restaurantapp.entities.FoodItem;
 import com.example.restaurantapp.entities.Order;
 import com.example.restaurantapp.entities.OrderItem;
+import com.example.restaurantapp.entities.TableEntity;
 import com.example.restaurantapp.recyclerview.CurrentOrderCardAdapter;
 import com.example.restaurantapp.services.ApiService;
 import com.example.restaurantapp.services.RetrofitService;
@@ -63,7 +65,8 @@ public class CurrentOrderFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        currentOrderViewModel = new ViewModelProvider(requireActivity()).get(CurrentOrderViewModel.class);
+        currentOrderViewModel = new ViewModelProvider(requireActivity(), new CurrentOrderViewModelFactory()).get(CurrentOrderViewModel.class);
+        Log.d("ViewModel Instance", "CurrentOrderFragment: " + currentOrderViewModel.hashCode());
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
@@ -111,7 +114,9 @@ public class CurrentOrderFragment extends Fragment {
             Order order = new Order();
             order.setStatus("PREPARING");
             orderItems = currentOrderViewModel.createOrder(selectedItems, order);
+//            TableEntity table = currentOrderViewModel.getSelectedTable().getValue();
             Log.d("Order items", "orderItems: " + orderItems);
+//            Log.d("Selected table", "selected table: " + table);
             Log.d("New Order", "order: " + order);
             sendOrderButton.setOnClickListener(new View.OnClickListener() {
                 @Override

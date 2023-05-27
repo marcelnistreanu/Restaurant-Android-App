@@ -1,6 +1,9 @@
 package com.example.restaurantapp.entities;
 
+import com.google.gson.annotations.Expose;
+
 import java.time.LocalDate;
+import java.util.Date;
 
 public class TableEntity {
 
@@ -12,11 +15,12 @@ public class TableEntity {
 
     private String status;
 
-    private LocalDate updatedAt;
+    private Date updatedAt;
 
+    @Expose(serialize = false, deserialize = false)
     private Order order;
 
-    public TableEntity(Long id, int capacity, String description, String status, LocalDate updatedAt, Order order) {
+    public TableEntity(Long id, int capacity, String description, String status, Date updatedAt, Order order) {
         this.id = id;
         this.capacity = capacity;
         this.description = description;
@@ -57,11 +61,11 @@ public class TableEntity {
         this.status = status;
     }
 
-    public LocalDate getUpdatedAt() {
+    public Date getUpdatedAt() {
         return updatedAt;
     }
 
-    public void setUpdatedAt(LocalDate updatedAt) {
+    public void setUpdatedAt(Date updatedAt) {
         this.updatedAt = updatedAt;
     }
 

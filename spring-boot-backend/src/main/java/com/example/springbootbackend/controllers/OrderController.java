@@ -2,15 +2,21 @@ package com.example.springbootbackend.controllers;
 
 import com.example.springbootbackend.entities.Order;
 import com.example.springbootbackend.entities.OrderItem;
+import com.example.springbootbackend.entities.TableEntity;
 import com.example.springbootbackend.repositories.OrderItemRepository;
 import com.example.springbootbackend.repositories.OrderRepository;
+import com.example.springbootbackend.repositories.TableRepository;
 import com.example.springbootbackend.services.FirebaseMessagingService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("api/v1/food")
@@ -19,6 +25,7 @@ public class OrderController {
 
     private final OrderRepository orderRepository;
     private final OrderItemRepository orderItemRepository;
+    private final TableRepository tableRepository;
 
     private final FirebaseMessagingService firebaseMessagingService;
 
@@ -33,9 +40,14 @@ public class OrderController {
         }
         savedOrder.setTotalAmount(totalAmount);
         orderRepository.save(savedOrder);
+        TableEntity table = order.getTable();
+        table.setStatus("OCCUPIED");
+        table.setUpdatedAt(new Date());
+        tableRepository.save(table);
 
         return ResponseEntity.ok("Order sent successfully");
     }
+
 
     @GetMapping("/getAllOrders")
     public ResponseEntity<?> getAllOrders() {
@@ -54,6 +66,11 @@ public class OrderController {
         ArrayList<OrderItem> orderItems = orderItemRepository.findByOrder(order);
         orderItemRepository.deleteAll(orderItems);
         orderRepository.delete(order);
+        TableEntity table = order.getTable();
+        table.setStatus("AVAILABLE");
+        table.setUpdatedAt(new Date());
+        tableRepository.save(table);
+
 
         return ResponseEntity.ok("Order deleted successfully");
     }

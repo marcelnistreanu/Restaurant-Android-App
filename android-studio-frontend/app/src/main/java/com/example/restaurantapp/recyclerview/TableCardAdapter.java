@@ -2,6 +2,7 @@ package com.example.restaurantapp.recyclerview;
 
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +13,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.restaurantapp.CurrentOrderViewModel;
 import com.example.restaurantapp.R;
 import com.example.restaurantapp.activities.DashboardWaiterActivity;
 import com.example.restaurantapp.activities.MenuActivity;
@@ -25,10 +27,12 @@ public class TableCardAdapter extends RecyclerView.Adapter<TableCardHolder> {
 
     Context context;
     ArrayList<TableEntity> tableList;
+    CurrentOrderViewModel currentOrderViewModel;
 
-    public TableCardAdapter(Context context, ArrayList<TableEntity> tableList) {
+    public TableCardAdapter(Context context, ArrayList<TableEntity> tableList, CurrentOrderViewModel currentOrderViewModel) {
         this.context = context;
         this.tableList = tableList;
+        this.currentOrderViewModel = currentOrderViewModel;
     }
 
     public Context getContext() {
@@ -71,6 +75,8 @@ public class TableCardAdapter extends RecyclerView.Adapter<TableCardHolder> {
         holder.menuButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                currentOrderViewModel.setSelectedTable(table);
+                Log.d("Selected table", "" + table);
                 Intent intent = new Intent(context.getApplicationContext(), MenuActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 context.startActivity(intent);

@@ -1,5 +1,6 @@
 package com.example.springbootbackend.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -7,6 +8,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
+import java.util.Date;
 
 @Data
 @NoArgsConstructor
@@ -26,9 +28,11 @@ public class TableEntity {
 
     private String status;
 
-    private LocalDate updatedAt;
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date updatedAt;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "order_id", referencedColumnName = "order_id")
+    @OneToOne(mappedBy = "table")
+//    @JoinColumn(name = "order_id", referencedColumnName = "order_id")
+    @JsonIgnore
     private Order order;
 }

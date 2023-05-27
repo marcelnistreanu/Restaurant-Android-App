@@ -36,6 +36,7 @@ public class Order {
 
     private double totalAmount;
 
-    @OneToOne(mappedBy = "order")
+    @OneToOne
+    @JoinColumn(name = "table_id")
     private TableEntity table;
 }

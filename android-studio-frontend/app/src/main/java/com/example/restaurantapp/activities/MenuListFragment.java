@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.restaurantapp.CurrentOrderViewModel;
+import com.example.restaurantapp.CurrentOrderViewModelFactory;
 import com.example.restaurantapp.R;
 import com.example.restaurantapp.entities.FoodItem;
 import com.example.restaurantapp.recyclerview.FoodCardAdapter;
@@ -55,7 +56,8 @@ public class MenuListFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        currentOrderViewModel = new ViewModelProvider(requireActivity()).get(CurrentOrderViewModel.class);
+        currentOrderViewModel = new ViewModelProvider(requireActivity(), new CurrentOrderViewModelFactory()).get(CurrentOrderViewModel.class);
+        Log.d("ViewModel Instance", "MenuListFragment: " + currentOrderViewModel.hashCode());
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
