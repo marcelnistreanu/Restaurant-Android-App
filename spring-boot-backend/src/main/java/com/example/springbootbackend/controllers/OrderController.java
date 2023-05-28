@@ -42,7 +42,6 @@ public class OrderController {
         orderRepository.save(savedOrder);
         TableEntity table = order.getTable();
         table.setStatus("OCCUPIED");
-        table.setUpdatedAt(new Date());
         tableRepository.save(table);
 
         return ResponseEntity.ok("Order sent successfully");
@@ -68,7 +67,6 @@ public class OrderController {
         orderRepository.delete(order);
         TableEntity table = order.getTable();
         table.setStatus("AVAILABLE");
-        table.setUpdatedAt(new Date());
         tableRepository.save(table);
 
 

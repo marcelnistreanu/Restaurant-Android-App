@@ -114,9 +114,7 @@ public class CurrentOrderFragment extends Fragment {
             Order order = new Order();
             order.setStatus("PREPARING");
             orderItems = currentOrderViewModel.createOrder(selectedItems, order);
-//            TableEntity table = currentOrderViewModel.getSelectedTable().getValue();
             Log.d("Order items", "orderItems: " + orderItems);
-//            Log.d("Selected table", "selected table: " + table);
             Log.d("New Order", "order: " + order);
             sendOrderButton.setOnClickListener(new View.OnClickListener() {
                 @Override

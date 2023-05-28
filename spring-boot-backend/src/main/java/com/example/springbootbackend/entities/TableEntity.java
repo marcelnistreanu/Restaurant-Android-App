@@ -1,13 +1,14 @@
 package com.example.springbootbackend.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 @Data
@@ -24,15 +25,11 @@ public class TableEntity {
 
     private int capacity;
 
-    private String description;
-
     private String status;
 
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date updatedAt;
+//    private Date updatedAt;
 
-    @OneToOne(mappedBy = "table")
-//    @JoinColumn(name = "order_id", referencedColumnName = "order_id")
-    @JsonIgnore
+    @OneToOne(mappedBy = "table", fetch = FetchType.LAZY)
+    @JsonIgnoreProperties("table")
     private Order order;
 }

@@ -8,7 +8,9 @@ import com.example.restaurantapp.entities.Order;
 import com.example.restaurantapp.entities.OrderItem;
 import com.example.restaurantapp.entities.TableEntity;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Date;
 
 public class CurrentOrderViewModel extends ViewModel {
 
@@ -51,7 +53,6 @@ public class CurrentOrderViewModel extends ViewModel {
             orderItems.add(orderItem);
         }
         order.setOrderItems(orderItems);
-//        table.setStatus("OCCUPIED");
         order.setTable(table);
 //        table.setTableOrder(order);
         this.orderItems.setValue(orderItems);

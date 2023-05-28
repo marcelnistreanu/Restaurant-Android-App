@@ -2,6 +2,7 @@ package com.example.restaurantapp.recyclerview;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,6 +10,7 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
@@ -22,6 +24,8 @@ import com.example.restaurantapp.entities.FoodItem;
 import com.example.restaurantapp.entities.TableEntity;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 public class TableCardAdapter extends RecyclerView.Adapter<TableCardHolder> {
 
@@ -67,7 +71,12 @@ public class TableCardAdapter extends RecyclerView.Adapter<TableCardHolder> {
 
         holder.tableIdTextView.setText(table.getId().toString());
         holder.tableStatusTextView.setText(table.getStatus());
-        if(table.getTableOrder() != null) {
+        if (table.getStatus().equals("OCCUPIED")) {
+            int redColor = ContextCompat.getColor(context, R.color.cherry);
+            holder.statusBackground.setBackgroundColor(redColor);
+            holder.menuButton.setVisibility(View.GONE);
+        }
+        if (table.getTableOrder() != null) {
             holder.orderIdTextView.setText(table.getTableOrder().getId().toString());
         } else {
             holder.orderIdTextView.setText("None");
@@ -80,7 +89,6 @@ public class TableCardAdapter extends RecyclerView.Adapter<TableCardHolder> {
                 Intent intent = new Intent(context.getApplicationContext(), MenuActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 context.startActivity(intent);
-//                openMenuFragment();
             }
         });
 
@@ -91,15 +99,12 @@ public class TableCardAdapter extends RecyclerView.Adapter<TableCardHolder> {
         return tableList.size();
     }
 
-//    public void openMenuFragment() {
-//        // Create the MenuListFragment instance
-//        MenuListFragment menuFragment = new MenuListFragment();
-//
-//        // Perform the fragment transaction
-//        FragmentManager fragmentManager = getSupportFragmentManager();
-//        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-//        fragmentTransaction.replace(R.id.menu_list, menuFragment);
-//        fragmentTransaction.commit();
-//    }
-
+    public void sortTablesList() {
+        Collections.sort(tableList, new Comparator<TableEntity>() {
+            @Override
+            public int compare(TableEntity t1, TableEntity t2) {
+                return t1.getId().compareTo(t2.getId());
+            }
+        });
+    }
 }

@@ -1,5 +1,7 @@
 package com.example.springbootbackend.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -38,5 +40,6 @@ public class Order {
 
     @OneToOne
     @JoinColumn(name = "table_id")
+    @JsonIgnoreProperties("order")
     private TableEntity table;
 }

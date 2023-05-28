@@ -2,7 +2,6 @@ package com.example.restaurantapp.entities;
 
 import com.google.gson.annotations.Expose;
 
-import java.time.LocalDate;
 import java.util.Date;
 
 public class TableEntity {
@@ -11,21 +10,18 @@ public class TableEntity {
 
     private int capacity;
 
-    private String description;
-
     private String status;
 
-    private Date updatedAt;
+//    private Date updatedAt;
 
-    @Expose(serialize = false, deserialize = false)
+//    @Expose(serialize = false, deserialize = false)
     private Order order;
 
-    public TableEntity(Long id, int capacity, String description, String status, Date updatedAt, Order order) {
+    public TableEntity(Long id, int capacity, String status, Order order) {
         this.id = id;
         this.capacity = capacity;
-        this.description = description;
         this.status = status;
-        this.updatedAt = updatedAt;
+//        this.updatedAt = updatedAt;
         this.order = order;
     }
 
@@ -45,14 +41,6 @@ public class TableEntity {
         this.capacity = capacity;
     }
 
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
     public String getStatus() {
         return status;
     }
@@ -61,13 +49,13 @@ public class TableEntity {
         this.status = status;
     }
 
-    public Date getUpdatedAt() {
-        return updatedAt;
-    }
-
-    public void setUpdatedAt(Date updatedAt) {
-        this.updatedAt = updatedAt;
-    }
+//    public Date getUpdatedAt() {
+//        return updatedAt;
+//    }
+//
+//    public void setUpdatedAt(Date updatedAt) {
+//        this.updatedAt = updatedAt;
+//    }
 
     public Order getTableOrder() {
         return order;
@@ -82,9 +70,8 @@ public class TableEntity {
         return "TableEntity{" +
                 "id=" + id +
                 ", capacity=" + capacity +
-                ", description='" + description + '\'' +
                 ", status='" + status + '\'' +
-                ", updatedAt=" + updatedAt +
+//                ", updatedAt=" + updatedAt +
                 ", order=" + order +
                 '}';
     }

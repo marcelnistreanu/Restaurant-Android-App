@@ -47,7 +47,6 @@ public class TablesActivity extends AppCompatActivity {
     private void loadTablesList() {
         apiService = RetrofitService.getApiService();
         Call<ArrayList<TableEntity>> call = apiService.getTablesList();
-//        currentOrderViewModel = new ViewModelProvider(this).get(CurrentOrderViewModel.class);
 
         call.enqueue(new Callback<ArrayList<TableEntity>>() {
             @Override
@@ -55,6 +54,7 @@ public class TablesActivity extends AppCompatActivity {
                 if (response.isSuccessful()) {
                     ArrayList<TableEntity> tablesList = response.body();
                     tableAdapter = new TableCardAdapter(getApplicationContext(), tablesList, currentOrderViewModel);
+                    tableAdapter.sortTablesList();
                     tablesRecyclerView.setAdapter(tableAdapter);
                     Log.d("Tables list", tablesList.toString());
                 }
