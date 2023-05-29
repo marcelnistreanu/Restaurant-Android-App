@@ -2,6 +2,7 @@ package com.example.springbootbackend.controllers;
 
 import com.example.springbootbackend.entities.Order;
 import com.example.springbootbackend.entities.OrderItem;
+import com.example.springbootbackend.entities.OrderStatus;
 import com.example.springbootbackend.entities.TableEntity;
 import com.example.springbootbackend.repositories.OrderItemRepository;
 import com.example.springbootbackend.repositories.OrderRepository;
@@ -77,11 +78,29 @@ public class OrderController {
     public ResponseEntity<?> readySendOrder(@PathVariable Long orderId) {
         Order order = orderRepository.findById(orderId).orElseThrow();
 
-        order.setStatus("READY");
+        order.setStatus(OrderStatus.READY);
         orderRepository.save(order);
         firebaseMessagingService.sendNotificationByToken(orderId);
-        return ResponseEntity.ok("Order set to ready");
+        return ResponseEntity.ok("Order's status set to ready");
 
+    }
+
+    @PostMapping("/sendServedOrder/{orderId}")
+    public ResponseEntity<?> servedSendOrder(@PathVariable Long orderId) {
+        Order order = orderRepository.findById(orderId).orElseThrow();
+
+        order.setStatus(OrderStatus.SERVED);
+        orderRepository.save(order);
+        return ResponseEntity.ok("Order's status set to served");
+    }
+
+    @PostMapping("/sendPaidOrder/{orderId}")
+    public ResponseEntity<?> paidSendOrder(@PathVariable Long orderId) {
+        Order order = orderRepository.findById(orderId).orElseThrow();
+
+        order.setStatus(OrderStatus.PAID);
+        orderRepository.save(order);
+        return ResponseEntity.ok("Order's status set to paid");
     }
 
 }

@@ -20,7 +20,7 @@ public class OrderWaiterCardHolder extends RecyclerView.ViewHolder {
     CardView ordersCardView;
     ConstraintLayout orderConstraintLayout;
     ConstraintLayout expandableLayout;
-    LinearLayout expandButton;
+    LinearLayout expandButton, servedButton, paidButton;
     ImageView arrowImage;
 
 
@@ -36,6 +36,7 @@ public class OrderWaiterCardHolder extends RecyclerView.ViewHolder {
         this.expandableLayout = itemView.findViewById(R.id.exapandableLayout);
         this.expandButton = itemView.findViewById(R.id.arrow_button);
         this.arrowImage = itemView.findViewById(R.id.arrow_image);
-
+        this.servedButton = itemView.findViewById(R.id.layout_served);
+        this.paidButton = itemView.findViewById(R.id.layout_paid);
     }
 }

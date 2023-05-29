@@ -44,6 +44,12 @@ public interface ApiService {
     @POST("api/v1/food/sendReadyOrder/{orderId}")
     Call<Void> sendReadyOrder(@Path("orderId") Long orderId);
 
+    @POST("api/v1/food/sendServedOrder/{orderId}")
+    Call<Void> sendServedOrder(@Path("orderId") Long orderId);
+
+    @POST("api/v1/food/sendPaidOrder/{orderId}")
+    Call<Void> sendPaidOrder(@Path("orderId") Long orderId);
+
     @GET("api/v1/food/getTablesList")
     Call<ArrayList<TableEntity>> getTablesList();
 }

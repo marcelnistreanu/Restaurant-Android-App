@@ -34,7 +34,8 @@ public class Order {
 
     private String notes;
 
-    private String status = "PREPARING";
+    @Enumerated(EnumType.STRING)
+    private OrderStatus status = OrderStatus.PREPARING;
 
     private double totalAmount;
 

@@ -1,5 +1,6 @@
 package com.example.restaurantapp.recyclerview;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.Resources;
 import android.util.Log;
@@ -7,13 +8,18 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
+
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
 import com.example.restaurantapp.R;
 import com.example.restaurantapp.entities.Order;
+import com.example.restaurantapp.entities.OrderStatus;
 import com.example.restaurantapp.services.ApiService;
 import com.example.restaurantapp.services.RetrofitService;
+
 import org.jetbrains.annotations.NotNull;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -60,18 +66,32 @@ public class OrderWaiterCardAdapter extends RecyclerView.Adapter<OrderWaiterCard
     }
 
     @Override
-    public void onBindViewHolder(@NonNull @NotNull OrderWaiterCardHolder holder, int position) {
+    public void onBindViewHolder(@NonNull @NotNull OrderWaiterCardHolder holder, @SuppressLint("RecyclerView") int position) {
         Order order = orderList.get(position);
 
         holder.orderId.setText(order.getId().toString());
         holder.status.setText(order.getStatus());
-        if (Objects.equals(order.getStatus(), "READY")) {
-            holder.statusBackground.setBackgroundResource(R.drawable.bg_status_done);
-            ViewGroup.MarginLayoutParams params = (ViewGroup.MarginLayoutParams) holder.status.getLayoutParams();
-            int marginStart = dpToPx(40);
-            params.setMarginStart(marginStart);
-            holder.status.setLayoutParams(params);
+        if (Objects.equals(order.getStatus(), OrderStatus.PREPARING.toString())) {
+            holder.servedButton.setVisibility(View.GONE);
+            holder.paidButton.setVisibility(View.GONE);
         }
+
+        if (Objects.equals(order.getStatus(), OrderStatus.READY.toString())) {
+            holder.statusBackground.setBackgroundResource(R.drawable.bg_status_ready);
+            holder.paidButton.setVisibility(View.GONE);
+        }
+
+        if (Objects.equals(order.getStatus(), OrderStatus.SERVED.toString())) {
+            holder.statusBackground.setBackgroundResource(R.drawable.bg_status_served);
+            holder.servedButton.setVisibility(View.GONE);
+        }
+
+        if (Objects.equals(order.getStatus(), OrderStatus.PAID.toString())) {
+            holder.statusBackground.setBackgroundResource(R.drawable.bg_status_paid);
+            holder.servedButton.setVisibility(View.GONE);
+            holder.paidButton.setVisibility(View.GONE);
+        }
+
 
         CustomWaiterBaseAdapter orderItemListAdapter = new CustomWaiterBaseAdapter(getContext(), order.getOrderItems());
         holder.orderItemsListView.setAdapter(orderItemListAdapter);
@@ -96,6 +116,20 @@ public class OrderWaiterCardAdapter extends RecyclerView.Adapter<OrderWaiterCard
                 }
             }
         });
+
+        holder.servedButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                sendServedOrder(position);
+            }
+        });
+
+        holder.paidButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                sendPaidOrder(position);
+            }
+        });
     }
 
     @Override
@@ -108,9 +142,9 @@ public class OrderWaiterCardAdapter extends RecyclerView.Adapter<OrderWaiterCard
     }
 
     private void setCardSize(@NonNull OrderWaiterCardHolder holder, Order order) {
-        int currentHeightList = dpToPx(30);
+        int currentHeightList = dpToPx(40);
         Log.d("currentHeightList", "currentHeightList: " + currentHeightList);
-        int newHeightList = currentHeightList + (dpToPx(40) * order.getOrderItems().size());
+        int newHeightList = currentHeightList + (dpToPx(45) * order.getOrderItems().size());
         Log.d("newHeightList", "newHeightList: " + newHeightList);
         ViewGroup.LayoutParams layoutParamsList = holder.orderItemsListView.getLayoutParams();
         layoutParamsList.height = newHeightList;
@@ -152,7 +186,7 @@ public class OrderWaiterCardAdapter extends RecyclerView.Adapter<OrderWaiterCard
 
         int defaultHeightLayout = holder.orderConstraintLayout.getHeight();
         ViewGroup.LayoutParams layoutParamsLayout = holder.orderConstraintLayout.getLayoutParams();
-        layoutParamsLayout.height = dpToPx(100);
+        layoutParamsLayout.height = dpToPx(130);
         holder.orderConstraintLayout.setLayoutParams(layoutParamsLayout);
 
         ViewGroup.LayoutParams layoutParamsCardView = holder.ordersCardView.getLayoutParams();
@@ -160,7 +194,7 @@ public class OrderWaiterCardAdapter extends RecyclerView.Adapter<OrderWaiterCard
             layoutParamsCardView = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         }
         int defaultHeight = defaultHeightLayout;
-        layoutParamsCardView.height = dpToPx(117);
+        layoutParamsCardView.height = dpToPx(147);
         holder.ordersCardView.setLayoutParams(layoutParamsCardView);
     }
 
@@ -185,7 +219,7 @@ public class OrderWaiterCardAdapter extends RecyclerView.Adapter<OrderWaiterCard
         call.enqueue(new Callback<Void>() {
             @Override
             public void onResponse(Call<Void> call, Response<Void> response) {
-                if(response.isSuccessful()) {
+                if (response.isSuccessful()) {
                     orderList.remove(position);
                     Log.d("API", "Order deleted successfully");
                     Toast.makeText(getContext(), "Order deleted", Toast.LENGTH_SHORT).show();
@@ -200,5 +234,49 @@ public class OrderWaiterCardAdapter extends RecyclerView.Adapter<OrderWaiterCard
             }
         });
         notifyItemRemoved(position);
+    }
+
+    private void sendServedOrder(int position) {
+        ApiService apiService = RetrofitService.getApiService();
+        Order order = orderList.get(position);
+        Call<Void> call = apiService.sendServedOrder(order.getId());
+
+        call.enqueue(new Callback<Void>() {
+            @Override
+            public void onResponse(Call<Void> call, Response<Void> response) {
+                if (response.isSuccessful()) {
+                    Toast.makeText(getContext(), "Order set to Served", Toast.LENGTH_SHORT).show();
+                    order.setStatus(OrderStatus.SERVED.toString());
+                    notifyItemChanged(position);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Void> call, Throwable t) {
+                Toast.makeText(getContext(), "API failed: " + t.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    private void sendPaidOrder(int position) {
+        ApiService apiService = RetrofitService.getApiService();
+        Order order = orderList.get(position);
+        Call<Void> call = apiService.sendPaidOrder(order.getId());
+
+        call.enqueue(new Callback<Void>() {
+            @Override
+            public void onResponse(Call<Void> call, Response<Void> response) {
+                if (response.isSuccessful()) {
+                    Toast.makeText(getContext(), "Order set to Paid", Toast.LENGTH_SHORT).show();
+                    order.setStatus(OrderStatus.PAID.toString());
+                    notifyItemChanged(position);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Void> call, Throwable t) {
+                Toast.makeText(getContext(), "API failed: " + t.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 }
