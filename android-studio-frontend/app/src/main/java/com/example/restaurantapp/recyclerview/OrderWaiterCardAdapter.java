@@ -70,6 +70,7 @@ public class OrderWaiterCardAdapter extends RecyclerView.Adapter<OrderWaiterCard
         Order order = orderList.get(position);
 
         holder.orderId.setText(order.getId().toString());
+        holder.tableId.setText(order.getTable().getId().toString());
         holder.status.setText(order.getStatus());
         if (Objects.equals(order.getStatus(), OrderStatus.PREPARING.toString())) {
             holder.servedButton.setVisibility(View.GONE);
@@ -221,6 +222,7 @@ public class OrderWaiterCardAdapter extends RecyclerView.Adapter<OrderWaiterCard
             public void onResponse(Call<Void> call, Response<Void> response) {
                 if (response.isSuccessful()) {
                     orderList.remove(position);
+                    notifyItemRemoved(position);
                     Log.d("API", "Order deleted successfully");
                     Toast.makeText(getContext(), "Order deleted", Toast.LENGTH_SHORT).show();
                 } else {
@@ -233,7 +235,6 @@ public class OrderWaiterCardAdapter extends RecyclerView.Adapter<OrderWaiterCard
                 Log.d("API", "Failed to delete: " + t.getMessage());
             }
         });
-        notifyItemRemoved(position);
     }
 
     private void sendServedOrder(int position) {

@@ -13,7 +13,7 @@ public class FirebaseMessagingService {
 
     private final FirebaseMessaging firebaseMessaging;
 
-    private static String deviceToken = "dBWJTxcgQJuDIOdkkUPrGM:APA91bHp-KpozKSbk1VLnjvojN1rCna5R3iunKyk_qSTK33oHdabi0xWlrDwHeMcxC0bZI9x-VkWi2Be9-OEae6fqDpdp7S-nhHVHUroER6mItLT2kZ44pG4NLgjLlHvFF66eqwTsp6I";
+    private static String deviceToken = "fRjCReUkTMubsgkYGN9wfG:APA91bG45_ByZfDfs41g6ovxxbQlUbwB1XF56VYnNxYu-qWG0Eh_dGX-LssHbA9ttBnsjdBqBWqNnDK7JxauCkAaPB9d2g_2avdvmuUzjsUEt7fFabVFi_ep8_XdRCMuSqSkXmBqUR_7";
 
     public void sendNotificationByToken(Long orderId) {
 

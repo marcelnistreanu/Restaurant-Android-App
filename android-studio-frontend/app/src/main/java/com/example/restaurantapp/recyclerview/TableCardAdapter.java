@@ -1,5 +1,6 @@
 package com.example.restaurantapp.recyclerview;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
@@ -66,7 +67,7 @@ public class TableCardAdapter extends RecyclerView.Adapter<TableCardHolder> {
     }
 
     @Override
-    public void onBindViewHolder(@NonNull TableCardHolder holder, int position) {
+    public void onBindViewHolder(@NonNull TableCardHolder holder, @SuppressLint("RecyclerView") int position) {
         TableEntity table = tableList.get(position);
 
         holder.tableIdTextView.setText(table.getId().toString());
@@ -89,6 +90,8 @@ public class TableCardAdapter extends RecyclerView.Adapter<TableCardHolder> {
                 Intent intent = new Intent(context.getApplicationContext(), MenuActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 context.startActivity(intent);
+                table.setStatus("OCCUPIED");
+                notifyItemChanged(position);
             }
         });
 

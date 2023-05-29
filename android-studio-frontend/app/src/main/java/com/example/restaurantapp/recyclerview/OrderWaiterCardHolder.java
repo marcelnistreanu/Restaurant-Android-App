@@ -14,7 +14,7 @@ import org.jetbrains.annotations.NotNull;
 
 public class OrderWaiterCardHolder extends RecyclerView.ViewHolder {
 
-    TextView orderId, status;
+    TextView orderId, status, tableId;
     LinearLayout statusBackground;
     ListView orderItemsListView;
     CardView ordersCardView;
@@ -38,5 +38,6 @@ public class OrderWaiterCardHolder extends RecyclerView.ViewHolder {
         this.arrowImage = itemView.findViewById(R.id.arrow_image);
         this.servedButton = itemView.findViewById(R.id.layout_served);
         this.paidButton = itemView.findViewById(R.id.layout_paid);
+        this.tableId = itemView.findViewById(R.id.table_id_waiter);
     }
 }

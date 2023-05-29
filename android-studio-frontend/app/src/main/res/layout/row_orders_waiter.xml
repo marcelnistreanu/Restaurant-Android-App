@@ -178,7 +178,7 @@
         </TextView>
 
         <TextView
-            android:id="@+id/table_id"
+            android:id="@+id/table_id_waiter"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="12dp"
@@ -198,7 +198,7 @@
             android:layout_marginTop="10dp"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/table_id">
+            app:layout_constraintTop_toBottomOf="@id/table_id_waiter">
 
             <ListView
                 android:id="@+id/listView"
