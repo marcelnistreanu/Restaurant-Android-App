@@ -1,13 +1,20 @@
 package com.example.springbootbackend.auth;
 
+import com.example.springbootbackend.MessageResponse;
 import com.example.springbootbackend.config.JwtService;
+import com.example.springbootbackend.config.LogoutService;
 import com.example.springbootbackend.dto.UserDto;
+import com.example.springbootbackend.repositories.TokenRepository;
+import com.example.springbootbackend.services.UserDetailsImpl;
 import com.example.springbootbackend.services.UserService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -24,6 +31,9 @@ public class AuthenticationController {
     private final UserService userService;
 
     private final JwtService jwtService;
+
+    private final TokenRepository tokenRepository;
+
 
 
     @PostMapping("/register")
@@ -53,5 +63,12 @@ public class AuthenticationController {
         return ResponseEntity.ok(userDto);
     }
 
+    @PostMapping("/sign-out")
+    @Transactional
+    public ResponseEntity<?> logoutUser(@Valid @RequestHeader(value = "Authorization") String token) {
+        String jwt = token.substring(7);
+        tokenRepository.deleteByToken(jwt);
+        return ResponseEntity.ok(new MessageResponse("Logged out successfully."));
+    }
 
 }

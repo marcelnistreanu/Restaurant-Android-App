@@ -44,7 +44,7 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
 
         setupLoginButton();
-        retrieveDeviceToken();
+//        retrieveDeviceToken();
 
     }
 
@@ -123,22 +123,4 @@ public class LoginActivity extends AppCompatActivity {
 
     }
 
-    private void retrieveDeviceToken() {
-        FirebaseMessaging.getInstance().getToken()
-                .addOnCompleteListener(new OnCompleteListener<String>() {
-                    @Override
-                    public void onComplete(@NonNull Task<String> task) {
-                        if (!task.isSuccessful()) {
-                            Log.d("TAG", "Fetching FCM registration token failed");
-                            return;
-                        }
-
-                        // Get new FCM registration token
-                        String token = task.getResult();
-
-                        // Log and toast
-                        Log.d("Device token", token);
-                    }
-                });
-    }
 }

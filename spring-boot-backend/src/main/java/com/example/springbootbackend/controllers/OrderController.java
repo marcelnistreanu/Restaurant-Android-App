@@ -1,106 +1,64 @@
 package com.example.springbootbackend.controllers;
 
+import com.example.springbootbackend.MessageResponse;
 import com.example.springbootbackend.entities.Order;
-import com.example.springbootbackend.entities.OrderItem;
-import com.example.springbootbackend.entities.OrderStatus;
-import com.example.springbootbackend.entities.TableEntity;
 import com.example.springbootbackend.repositories.OrderItemRepository;
-import com.example.springbootbackend.repositories.OrderRepository;
-import com.example.springbootbackend.repositories.TableRepository;
-import com.example.springbootbackend.services.FirebaseMessagingService;
+import com.example.springbootbackend.services.OrderService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.Optional;
+import java.util.List;
 
 @RestController
 @RequestMapping("api/v1/food")
 @RequiredArgsConstructor
+@CrossOrigin
 public class OrderController {
 
-    private final OrderRepository orderRepository;
     private final OrderItemRepository orderItemRepository;
-    private final TableRepository tableRepository;
+    private final OrderService orderService;
 
-    private final FirebaseMessagingService firebaseMessagingService;
 
     @PostMapping("/sendOrder")
     public ResponseEntity<?> sendOrder(@RequestBody Order order) {
-        Order savedOrder = orderRepository.save(order);
-        double totalAmount = 0;
-        for (OrderItem orderItem : order.getOrderItems()) {
-            orderItem.setOrder(savedOrder);
-            orderItemRepository.save(orderItem);
-            totalAmount += orderItem.getFoodItem().getPrice();
-        }
-        savedOrder.setTotalAmount(totalAmount);
-        orderRepository.save(savedOrder);
-        TableEntity table = order.getTable();
-        table.setStatus("OCCUPIED");
-        tableRepository.save(table);
-
-        return ResponseEntity.ok("Order sent successfully");
+        orderService.sendOrder(order);
+        return ResponseEntity.ok(new MessageResponse("Order sent successfully"));
     }
-
 
     @GetMapping("/getAllOrders")
     public ResponseEntity<?> getAllOrders() {
-        return ResponseEntity.ok(orderRepository.findAll());
+        List<Order> orders = orderService.getAllOrders();
+        return ResponseEntity.ok(orders);
     }
-
 
     @GetMapping("/getAllOrderItems")
     public ResponseEntity<?> getAllOrderItems() {
         return ResponseEntity.ok(orderItemRepository.findAll());
     }
 
-    @PostMapping("/deleteOrder/{orderId}")
+    @DeleteMapping("/deleteOrder/{orderId}")
     public ResponseEntity<?> deleteOrder(@PathVariable Long orderId) {
-        Order order = orderRepository.findById(orderId).orElseThrow();
-        ArrayList<OrderItem> orderItems = orderItemRepository.findByOrder(order);
-        orderItemRepository.deleteAll(orderItems);
-        orderRepository.delete(order);
-        TableEntity table = order.getTable();
-        table.setStatus("AVAILABLE");
-        tableRepository.save(table);
-
-
-        return ResponseEntity.ok("Order deleted successfully");
+        orderService.deleteOrder(orderId);
+        return ResponseEntity.ok(new MessageResponse("Order deleted successfully."));
     }
 
-    @PostMapping("/sendReadyOrder/{orderId}")
-    public ResponseEntity<?> readySendOrder(@PathVariable Long orderId) {
-        Order order = orderRepository.findById(orderId).orElseThrow();
-
-        order.setStatus(OrderStatus.READY);
-        orderRepository.save(order);
-        firebaseMessagingService.sendNotificationByToken(orderId);
-        return ResponseEntity.ok("Order's status set to ready");
-
+    @PutMapping("/sendReadyOrder/{orderId}")
+    public ResponseEntity<?> updateOrderToReady(@PathVariable Long orderId) {
+        orderService.updateOrderToReady(orderId);
+        return ResponseEntity.ok(new MessageResponse("Order's status set to ready"));
     }
 
-    @PostMapping("/sendServedOrder/{orderId}")
+    @PutMapping("/sendServedOrder/{orderId}")
     public ResponseEntity<?> servedSendOrder(@PathVariable Long orderId) {
-        Order order = orderRepository.findById(orderId).orElseThrow();
-
-        order.setStatus(OrderStatus.SERVED);
-        orderRepository.save(order);
-        return ResponseEntity.ok("Order's status set to served");
+        orderService.updateOrderToServed(orderId);
+        return ResponseEntity.ok(new MessageResponse("Order's status set to served"));
     }
 
-    @PostMapping("/sendPaidOrder/{orderId}")
+    @PutMapping("/sendPaidOrder/{orderId}")
     public ResponseEntity<?> paidSendOrder(@PathVariable Long orderId) {
-        Order order = orderRepository.findById(orderId).orElseThrow();
-
-        order.setStatus(OrderStatus.PAID);
-        orderRepository.save(order);
-        return ResponseEntity.ok("Order's status set to paid");
+        orderService.updateOrderToPaid(orderId);
+        return ResponseEntity.ok(new MessageResponse("Order's status set to paid"));
     }
 
 }

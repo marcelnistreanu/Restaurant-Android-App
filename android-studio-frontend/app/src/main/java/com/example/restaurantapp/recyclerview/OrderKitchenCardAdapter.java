@@ -184,6 +184,8 @@ public class OrderKitchenCardAdapter extends RecyclerView.Adapter<OrderKitchenCa
                     Toast.makeText(getContext(), "Order sent to the waiter", Toast.LENGTH_SHORT).show();
                     orderList.remove(position);
                     notifyDataSetChanged();
+                } else {
+                    Log.d("API failed", " " + response.message());
                 }
             }
 

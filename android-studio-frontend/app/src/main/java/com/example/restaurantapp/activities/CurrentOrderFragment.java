@@ -141,7 +141,6 @@ public class CurrentOrderFragment extends Fragment {
                     Toast.makeText(getContext(), "Failed to send", Toast.LENGTH_SHORT).show();
                 }
             }
-
             @Override
             public void onFailure(Call<Void> call, Throwable t) {
                 Log.d("Order failed", "order failed to send: " + t.getMessage());

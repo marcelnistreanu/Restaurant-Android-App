@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("api/v1/food")
 @RequiredArgsConstructor
+@CrossOrigin
 public class FoodItemController {
 
     private final FoodItemRepository foodRepository;
@@ -19,9 +20,4 @@ public class FoodItemController {
         return ResponseEntity.ok(foodRepository.findAll());
     }
 
-    @GetMapping("/getFood/{foodName}")
-    public ResponseEntity<?> getPizza(@PathVariable String foodName){
-        FoodItem food = foodRepository.findByFoodName(foodName).orElseThrow();
-        return ResponseEntity.ok(food);
-    }
 }

@@ -3,6 +3,7 @@ package com.example.springbootbackend.services;
 import com.example.springbootbackend.entities.Role;
 import com.example.springbootbackend.entities.User;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
