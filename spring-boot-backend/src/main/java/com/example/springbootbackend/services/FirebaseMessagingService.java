@@ -11,6 +11,14 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class FirebaseMessagingService {
 
+    private final FirebaseMessaging firebaseMessaging;
+
+    private String deviceToken;
+
+    public void updateDeviceToken(String newDeviceToken) {
+        this.deviceToken = newDeviceToken.replace("\"", "");
+    }
+
     public void sendNotificationByToken(Long orderId) {
 
         Notification notification = Notification
@@ -32,14 +40,5 @@ public class FirebaseMessagingService {
             System.out.println("Failed to send notification: " + e.getMessage());
         }
     }
-
-    private final FirebaseMessaging firebaseMessaging;
-
-    private String deviceToken;
-
-    public void updateDeviceToken(String newDeviceToken) {
-        this.deviceToken = newDeviceToken.replace("\"", "");
-    }
-
 
 }

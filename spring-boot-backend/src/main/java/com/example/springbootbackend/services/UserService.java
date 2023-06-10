@@ -20,4 +20,11 @@ public class UserService {
         userDto.setRole(user.getRole().toString());
         return userDto;
     }
+
+    public void updateUserInfo(String email, UserDto userDto) {
+        User user = userRepository.findByEmail(email).orElseThrow();
+        user.setEmail(userDto.getEmail());
+        user.setFullName(userDto.getFullName());
+        userRepository.save(user);
+    }
 }

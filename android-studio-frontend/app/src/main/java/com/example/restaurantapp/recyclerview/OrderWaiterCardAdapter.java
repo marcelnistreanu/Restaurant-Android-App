@@ -203,13 +203,7 @@ public class OrderWaiterCardAdapter extends RecyclerView.Adapter<OrderWaiterCard
         Collections.sort(orderList, new Comparator<Order>() {
             @Override
             public int compare(Order o1, Order o2) {
-                if (o1.getStatus().equals("READY") && !o2.getStatus().equals("READY")) {
-                    return -1;
-                } else if (!o1.getStatus().equals("READY") && o2.getStatus().equals("READY")) {
-                    return 1;
-                } else {
-                    return Long.compare(o2.getId(), o1.getId());
-                }
+                return Long.compare(o2.getId(), o1.getId());
             }
         });
     }

@@ -71,4 +71,13 @@ public class AuthenticationController {
         return ResponseEntity.ok(new MessageResponse("Logged out successfully."));
     }
 
+    @PostMapping("/updateUser")
+    public ResponseEntity<?> updateUserInfo(@Valid @RequestHeader(value = "Authorization") String token,
+                                            @RequestBody UserDto userDto) {
+        String jwt = token.substring(7);
+        String username = jwtService.extractUsername(jwt);
+        userService.updateUserInfo(username, userDto);
+        return ResponseEntity.ok(new MessageResponse("User details updated successfully."));
+    }
+
 }
